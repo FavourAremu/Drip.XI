@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drip XI | Order Your Jersey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --gold: #E8B44F;
+            --dark: #141414;
+            --card: #1E1E1E;
+            --border: rgba(232,180,79,0.2);
+            --text: #F0F0F0;
+            --muted: rgba(240,240,240,0.6);
+        }
+
+        body {
+            font-family: 'Oswald', sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        header {
+            background: #0F0F0F;
+            border-bottom: 1px solid var(--border);
+            padding: 1.2rem 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .wa-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: #25D366;
+            color: #fff;
+            text-decoration: none;
+            padding: 0.6rem 1.4rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .wa-btn:hover { background: #1ebe5c; transform: translateY(-2px); }
+
+        .hero {
+            background: linear-gradient(135deg, #0F0F0F 0%, #1a1a1a 100%);
+            padding: 5rem 5% 4rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle at center, rgba(232,180,79,0.07) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            padding: 0.4rem 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: clamp(3rem, 8vw, 6rem);
+            letter-spacing: 5px;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 span { color: var(--gold); }
+
+        .hero p {
+            font-weight: 300;
+            color: var(--muted);
+            letter-spacing: 2px;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .price-tag {
+            display: inline-block;
+            background: var(--gold);
+            color: #0F0F0F;
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            padding: 0.5rem 2rem;
+        }
+
+        .jerseys-strip {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            padding: 2.5rem 5%;
+            flex-wrap: wrap;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .jersey-pill {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .jersey-pill:hover { border-color: var(--gold); color: var(--gold); }
+        .jersey-pill .icon { font-size: 1.5rem; }
+
+        .order-section {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 4rem 5%;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.5rem;
+            letter-spacing: 3px;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-sub {
+            color: var(--muted);
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-bottom: 2.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group { margin-bottom: 1.5rem; }
+
+        label {
+            display: block;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.9rem 1.2rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            outline: none;
+            transition: border-color 0.3s;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        input:focus, select:focus, textarea:focus { border-color: var(--gold); }
+
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23E8B44F' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1.2rem center;
+            background-color: var(--card);
+            padding-right: 3rem;
+        }
+
+        select option { background: #1E1E1E; color: var(--text); }
+        textarea { resize: vertical; min-height: 80px; }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .order-summary {
+            background: rgba(232,180,79,0.05);
+            border: 1px solid var(--gold);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .summary-label {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.4rem 0;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .summary-row.total {
+            border-top: 1px solid var(--border);
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            color: var(--text);
+            font-size: 1.2rem;
+        }
+
+        .summary-row.total span:last-child { color: var(--gold); font-weight: 600; }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--gold);
+            color: #0F0F0F;
+            border: none;
+            padding: 1.2rem;
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover { background: #FFD060; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(232,180,79,0.3); }
+        .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        .success-box {
+            display: none;
+            background: rgba(37,211,102,0.08);
+            border: 1px solid #25D366;
+            padding: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .success-box.show { display: block; }
+        .success-box h3 { font-family: 'Bebas Neue', cursive; font-size: 1.8rem; letter-spacing: 2px; color: #25D366; margin-bottom: 1rem; }
+        .success-box p { color: var(--muted); font-weight: 300; line-height: 1.8; }
+        .success-box a { color: #25D366; text-decoration: none; }
+
+        .socials-bar {
+            background: #0F0F0F;
+            border-top: 1px solid var(--border);
+            padding: 3.5rem 5%;
+            text-align: center;
+        }
+
+        .socials-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.8rem;
+            letter-spacing: 3px;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .socials-sub {
+            color: var(--muted);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.8rem 1.8rem;
+            border: 1px solid var(--border);
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .social-link:hover { border-color: var(--gold); color: var(--gold); }
+        .social-link.whatsapp:hover { border-color: #25D366; color: #25D366; }
+
+        footer {
+            background: #0A0A0A;
+            padding: 1.5rem 5%;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 16px; height: 16px;
+            border: 2px solid rgba(0,0,0,0.3);
+            border-top-color: #0F0F0F;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @media (max-width: 600px) {
+            .form-row { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 3rem; }
+            .wa-btn span.label { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="#" class="logo">👑 DRIP XI</a>
+    <a href="https://wa.me/2347069533486" target="_blank" class="wa-btn">
+        💬 <span class="label">CHAT ON</span> WHATSAPP
+    </a>
+</header>
+
+<section class="hero">
+    <div class="hero-tag">ORIGINALITY • QUALITY • ROYALTY</div>
+    <h1>YOUR JERSEY.<br><span>YOUR DRIP.</span></h1>
+    <p>PREMIUM CUSTOM JERSEYS · MADE TO ORDER</p>
+    <div class="price-tag">₦30,000 PER JERSEY</div>
+</section>
+
+<div class="jerseys-strip">
+    <div class="jersey-pill"><span class="icon">⚽</span> FOOTBALL JERSEYS</div>
+    <div class="jersey-pill"><span class="icon">🏀</span> BASKETBALL JERSEYS</div>
+    <div class="jersey-pill"><span class="icon">⚾</span> BASEBALL JERSEYS</div>
+</div>
+
+<section class="order-section">
+    <div class="section-title">PLACE YOUR ORDER</div>
+    <div class="section-sub">FILL IN YOUR DETAILS · WE'LL HANDLE THE REST</div>
+
+    <div class="success-box" id="successBox">
+        <h3>✅ ORDER CONFIRMED!</h3>
+        <p>
+            Payment received and your order is locked in! 🔒<br>
+            We'll reach out to confirm your details and arrange delivery.<br><br>
+            Questions? <a href="https://wa.me/2347069533486" target="_blank">Chat with us on WhatsApp</a>
+        </p>
+    </div>
+
+    <form id="orderForm">
+        <div class="form-row">
+            <div class="form-group">
+                <label>FULL NAME *</label>
+                <input type="text" id="fullName" placeholder="Your full name" required>
+            </div>
+            <div class="form-group">
+                <label>PHONE NUMBER *</label>
+                <input type="tel" id="phone" placeholder="e.g. 08012345678" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>EMAIL ADDRESS *</label>
+            <input type="email" id="email" placeholder="your@email.com" required>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>JERSEY TYPE *</label>
+                <select id="jerseyType" required>
+                    <option value="" disabled selected>Select jersey type</option>
+                    <option value="Football">⚽ Football Jersey</option>
+                    <option value="Basketball">🏀 Basketball Jersey</option>
+                    <option value="Baseball">⚾ Baseball Jersey</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>SIZE *</label>
+                <select id="size" required>
+                    <option value="" disabled selected>Select size</option>
+                    <option>XS</option>
+                    <option>S (Small)</option>
+                    <option>M (Medium)</option>
+                    <option>L (Large)</option>
+                    <option>XL (Extra Large)</option>
+                    <option>XXL</option>
+                    <option>3XL</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Team/Club Selection (appears dynamically based on jersey type) -->
+        <div class="form-group" id="teamSection" style="display: none;">
+            <label id="teamLabel">SELECT TEAM/CLUB *</label>
+            <select id="teamClub">
+                <option value="" disabled selected>First select jersey type above</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>CUSTOM NAME ON JERSEY</label>
+                <input type="text" id="customName" placeholder="e.g. DRIP KING (optional)">
+            </div>
+            <div class="form-group">
+                <label>JERSEY NUMBER</label>
+                <input type="text" id="jerseyNumber" placeholder="e.g. 11 (optional)">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>DELIVERY ADDRESS *</label>
+            <textarea id="address" placeholder="Full delivery address including city and state" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>ADDITIONAL NOTES</label>
+            <textarea id="notes" placeholder="Special requests, colour preferences, etc." style="min-height:60px"></textarea>
+        </div>
+
+        <!-- PAYMENT METHOD -->
+        <div style="background: rgba(232,180,79,0.08); border: 1px solid var(--gold); padding: 1.5rem; margin-bottom: 2rem;">
+            <div style="font-family: 'Bebas Neue', cursive; font-size: 1.3rem; letter-spacing: 2px; color: var(--gold); margin-bottom: 1rem;">💰 PAYMENT DETAILS</div>
+            <div style="display: flex; flex-direction: column; gap: 0.8rem; font-size: 0.9rem;">
+                <div style="display: flex; justify-content: space-between;">
+                    <span style="color: var(--muted);">BANK NAME</span>
+                    <span style="font-weight: 600; letter-spacing: 1px;">OPAY</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span style="color: var(--muted);">ACCOUNT NUMBER</span>
+                    <span style="font-weight: 600; letter-spacing: 1px; font-size: 1.1rem; color: var(--gold);">9033932478</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span style="color: var(--muted);">ACCOUNT NAME</span>
+                    <span style="font-weight: 600; letter-spacing: 1px;">BOLUWATIFE EBENEZER</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 0.8rem; margin-top: 0.5rem;">
+                    <span style="color: var(--muted);">AMOUNT TO PAY</span>
+                    <span style="font-family: 'Bebas Neue', cursive; font-size: 1.5rem; color: var(--gold);">₦30,000</span>
+                </div>
+            </div>
+            <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(37,211,102,0.08); border: 1px solid #25D366; font-size: 0.85rem; line-height: 1.6; color: var(--muted);">
+                <strong style="color: #25D366;">📱 AFTER PAYMENT:</strong> Send your payment receipt/screenshot to us on <a href="https://wa.me/2347069533486" target="_blank" style="color: #25D366; text-decoration: none; font-weight: 600;">WhatsApp (+234 706 953 3486)</a> with your name to confirm your order.
+            </div>
+        </div>
+
+        <!-- ORDER SUMMARY -->
+        <div class="order-summary">
+            <div class="summary-label">ORDER SUMMARY</div>
+            <div class="summary-row"><span>JERSEY TYPE</span><span id="summaryType">—</span></div>
+            <div class="summary-row"><span>SIZE</span><span id="summarySize">—</span></div>
+            <div class="summary-row"><span>CUSTOM NAME / NUMBER</span><span id="summaryCustom">—</span></div>
+            <div class="summary-row total"><span>TOTAL</span><span>₦30,000</span></div>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">
+            SUBMIT ORDER →
+        </button>
+    </form>
+</section>
+
+<!-- SOCIALS -->
+<div class="socials-bar">
+    <div class="socials-title">CONNECT WITH US</div>
+    <div class="socials-sub">FOLLOW FOR NEW DROPS, UPDATES & INSPIRATION</div>
+    <div class="social-links">
+        <a href="https://wa.me/2347069533486" target="_blank" class="social-link whatsapp">💬 WHATSAPP</a>
+        <a href="https://www.instagram.com/dripped_eleven/" target="_blank" class="social-link">📸 INSTAGRAM</a>
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 DRIP XI · ALL RIGHTS RESERVED · ORIGINALITY • QUALITY • ROYALTY
+</footer>
+
+<script>
+    // ════════════════════════════════════════════════════════════
+    //  ✅ SETUP COMPLETE - READY TO GO LIVE!
+    // ════════════════════════════════════════════════════════════
+    //
+    //  EmailJS is configured and working.
+    //  All orders will send notifications to: 11.drip.eleven@gmail.com
+    //
+    //  Payment: Bank Transfer to Opay (9033932478)
+    //  Customers will send receipts via WhatsApp (+234 706 953 3486)
+    //
+    //  When you're ready to add card payments:
+    //  - Get Paystack compliance docs approved
+    //  - Add Paystack Public Key below
+    //  - Uncomment the Paystack code sections
+    //
+    // ════════════════════════════════════════════════════════════
+
+    const EMAILJS_PUBLIC_KEY  = "lmg0gZVXEITGHCSbS";
+    const EMAILJS_SERVICE_ID  = "service_9u6ulhs";
+    const EMAILJS_TEMPLATE_ID = "template_5p2of5c";
+
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+
+    // Team/Club options for each sport
+    const teamOptions = {
+        Football: [
+            'Manchester United', 'Manchester City', 'Chelsea', 'Liverpool', 'Arsenal',
+            'Barcelona', 'Real Madrid', 'Bayern Munich', 'PSG', 'AC Milan',
+            'Inter Milan', 'Juventus', 'Atletico Madrid', 'Borussia Dortmund',
+            'Ajax', 'Benfica', 'Porto', 'Tottenham', 'Newcastle', 'Other (Specify in notes)'
+        ],
+        Basketball: [
+            'LA Lakers', 'Golden State Warriors', 'Chicago Bulls', 'Boston Celtics',
+            'Miami Heat', 'Brooklyn Nets', 'Phoenix Suns', 'Milwaukee Bucks',
+            'Dallas Mavericks', 'Philadelphia 76ers', 'Denver Nuggets',
+            'Cleveland Cavaliers', 'New York Knicks', 'Toronto Raptors',
+            'LA Clippers', 'Other (Specify in notes)'
+        ],
+        Baseball: [
+            'New York Yankees', 'Los Angeles Dodgers', 'Boston Red Sox',
+            'Chicago Cubs', 'San Francisco Giants', 'St. Louis Cardinals',
+            'Atlanta Braves', 'Houston Astros', 'Philadelphia Phillies',
+            'New York Mets', 'Chicago White Sox', 'Detroit Tigers',
+            'Texas Rangers', 'Other (Specify in notes)'
+        ]
+    };
+
+    // Handle jersey type selection - show team dropdown
+    document.getElementById('jerseyType').addEventListener('change', function() {
+        const jerseyType = this.value;
+        const teamSection = document.getElementById('teamSection');
+        const teamClub = document.getElementById('teamClub');
+        const teamLabel = document.getElementById('teamLabel');
+        
+        if (jerseyType && teamOptions[jerseyType]) {
+            // Show team section
+            teamSection.style.display = 'block';
+            teamClub.required = true;
+            
+            // Update label based on sport
+            if (jerseyType === 'Football') {
+                teamLabel.textContent = 'SELECT FOOTBALL CLUB *';
+            } else {
+                teamLabel.textContent = 'SELECT TEAM *';
+            }
+            
+            // Populate team options
+            teamClub.innerHTML = '<option value="" disabled selected>Select team/club</option>';
+            teamOptions[jerseyType].forEach(team => {
+                const option = document.createElement('option');
+                option.value = team;
+                option.textContent = team;
+                teamClub.appendChild(option);
+            });
+        } else {
+            teamSection.style.display = 'none';
+            teamClub.required = false;
+        }
+        
+        updateSummary();
+    });
+
+    // Live summary update
+    ['jerseyType','size','customName','jerseyNumber','teamClub'].forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.addEventListener('change', updateSummary);
+            element.addEventListener('input', updateSummary);
+        }
+    });
+
+    function updateSummary() {
+        const type = document.getElementById('jerseyType').value || '—';
+        const team = document.getElementById('teamClub').value || '';
+        const size = document.getElementById('size').value || '—';
+        const name = document.getElementById('customName').value;
+        const num  = document.getElementById('jerseyNumber').value;
+        
+        // Combine jersey type with team
+        let jerseyDisplay = type;
+        if (team) {
+            jerseyDisplay = `${type} - ${team}`;
+        }
+        
+        let custom = '—';
+        if (name || num) custom = [name, num].filter(Boolean).join(' / ');
+        
+        document.getElementById('summaryType').textContent = jerseyDisplay;
+        document.getElementById('summarySize').textContent = size;
+        document.getElementById('summaryCustom').textContent = custom;
+    }
+
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const fullName     = document.getElementById('fullName').value.trim();
+        const phone        = document.getElementById('phone').value.trim();
+        const email        = document.getElementById('email').value.trim();
+        const jerseyType   = document.getElementById('jerseyType').value;
+        const teamClub     = document.getElementById('teamClub').value || 'Not specified';
+        const size         = document.getElementById('size').value;
+        const customName   = document.getElementById('customName').value.trim() || 'None';
+        const jerseyNumber = document.getElementById('jerseyNumber').value.trim() || 'None';
+        const address      = document.getElementById('address').value.trim();
+        const notes        = document.getElementById('notes').value.trim() || 'None';
+
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner"></span> SUBMITTING ORDER...';
+        
+        // Send email notification to store owner
+        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+            customer_name: fullName,
+            phone:         phone,
+            email:         email,
+            jersey_type:   jerseyType,
+            team_club:     teamClub,
+            size:          size,
+            custom_name:   customName,
+            jersey_number: jerseyNumber,
+            address:       address,
+            notes:         notes,
+            payment_ref:   'BANK TRANSFER - Pending confirmation',
+            amount:        '₦30,000'
+        }).then(function() {
+            document.getElementById('successBox').innerHTML = `
+                <h3>📋 ORDER RECEIVED!</h3>
+                <p>
+                    Thank you ${fullName}! Your order details have been submitted.<br><br>
+                    <strong style="color: var(--gold);">NEXT STEP:</strong><br>
+                    Transfer <strong style="font-size: 1.1rem;">₦30,000</strong> to:<br>
+                    <strong>Opay - 9033932478 (Boluwatife Ebenezer)</strong><br><br>
+                    Then send your payment receipt to us on <a href="https://wa.me/2347069533486" target="_blank" style="color: #25D366; font-weight: 600;">WhatsApp</a> with your name to confirm your order. We'll start working on it immediately! 🔥
+                </p>
+            `;
+            document.getElementById('successBox').classList.add('show');
+            document.getElementById('orderForm').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }).catch(function(err) {
+            console.error('Email error:', err);
+            alert('There was an error submitting your order. Please try again or contact us directly on WhatsApp: +234 706 953 3486');
+            btn.disabled = false;
+            btn.innerHTML = 'SUBMIT ORDER →';
+        });
+    });
+</script>
+
+</body>
+</html>
