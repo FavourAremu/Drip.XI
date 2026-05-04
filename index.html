@@ -504,7 +504,6 @@
     <div class="socials-sub">FOLLOW FOR NEW DROPS, UPDATES & INSPIRATION</div>
     <div class="social-links">
         <a href="https://wa.me/2347069533486" target="_blank" rel="noopener noreferrer" class="social-link whatsapp">💬 WHATSAPP</a>
-        <a href="https://www.instagram.com/dripped_eleven/" target="_blank" rel="noopener noreferrer" class="social-link">📸 INSTAGRAM</a>
     </div>
 </div>
 
@@ -533,7 +532,7 @@
 	    const EMAILJS_PUBLIC_KEY  = "lmg0gZVXEITGHCSbS";
 	    const EMAILJS_SERVICE_ID  = "service_9u6ulhs";
 	    const EMAILJS_TEMPLATE_ID = "template_5p2of5c";
-	    const emailjsClient = window.emailjs;
+	    const getEmailJS = () => window.emailjs;
 	    const elements = {
 	        orderForm: document.getElementById('orderForm'),
 	        successBox: document.getElementById('successBox'),
@@ -556,6 +555,7 @@
 	    };
 	    let emailjsReady = false;
 
+	    const emailjsClient = getEmailJS();
 	    if (emailjsClient && typeof emailjsClient.init === 'function') {
 	        try {
 	            emailjsClient.init(EMAILJS_PUBLIC_KEY);
@@ -735,6 +735,7 @@
 	        const spinner = document.createElement('span');
 	        spinner.className = 'spinner';
 
+	        const emailjsClient = getEmailJS();
 	        if (!emailjsReady || !emailjsClient || typeof emailjsClient.send !== 'function') {
 	            alert('Order email service is unavailable right now. Please send your order details directly on WhatsApp: +234 706 953 3486');
 	            return;
