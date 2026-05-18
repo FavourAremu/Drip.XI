@@ -6,27 +6,36 @@
     <title>Drip XI | Order Your Jersey</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Oswald:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Inter:wght@400;500;600;700&amp;family=Oswald:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --gold: #E8B44F;
-            --dark: #141414;
-            --card: #1E1E1E;
-            --border: rgba(232,180,79,0.2);
-            --text: #F0F0F0;
-            --muted: rgba(240,240,240,0.6);
+            --gold-soft: rgba(232,180,79,0.16);
+            --gold-faint: rgba(232,180,79,0.08);
+            --dark: #0A0A0A;
+            --panel: #101010;
+            --card: #171717;
+            --border: rgba(232,180,79,0.22);
+            --text: #F4F0E8;
+            --muted: rgba(244,240,232,0.64);
+            --green: #25D366;
             --font-display: 'Bebas Neue', sans-serif;
             --font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             --font-commerce: 'Oswald', sans-serif;
             --font-accent: 'Space Grotesk', sans-serif;
+            --transition: 0.3s ease;
         }
+
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: var(--font-body);
-            background: var(--dark);
+            background:
+                radial-gradient(circle at 15% 5%, rgba(232,180,79,0.08), transparent 28rem),
+                linear-gradient(180deg, #090909 0%, #111 52%, #080808 100%);
             color: var(--text);
             min-height: 100vh;
             font-size: 16px;
@@ -35,169 +44,388 @@
             text-rendering: geometricPrecision;
         }
 
+        a { transition: color var(--transition), border-color var(--transition), background var(--transition), box-shadow var(--transition), transform var(--transition), opacity var(--transition); }
+
         header {
-            background: #0F0F0F;
+            background: rgba(8,8,8,0.86);
             border-bottom: 1px solid var(--border);
-            padding: 1.2rem 5%;
+            padding: 1.05rem 5%;
             display: flex;
             align-items: center;
             justify-content: space-between;
             position: sticky;
             top: 0;
             z-index: 100;
+            backdrop-filter: blur(18px);
+        }
+
+        .logo,
+        .logo-lockup {
+            display: inline-flex;
+            align-items: center;
         }
 
         .logo {
+            color: var(--gold);
+            text-decoration: none;
+            filter: drop-shadow(0 0 0 rgba(232,180,79,0));
+            transition: transform var(--transition), filter var(--transition);
+        }
+
+        .logo:hover {
+            transform: translateY(-2px);
+            filter: drop-shadow(0 0 14px rgba(232,180,79,0.36));
+        }
+
+        .logo-lockup { gap: 0.65rem; }
+
+        .logo-mark {
+            width: 2.05rem;
+            height: 2.05rem;
+            color: var(--gold);
+            flex: 0 0 auto;
+            filter: drop-shadow(0 0 8px rgba(232,180,79,0.3));
+        }
+
+        .logo-wordmark {
             font-family: var(--font-display);
             font-size: 2rem;
-            color: var(--gold);
-            letter-spacing: 3px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            line-height: 0.9;
+            letter-spacing: 0.1em;
         }
 
-        .logo:hover { opacity: 0.8; }
+        .wa-btn,
+        .social-link,
+        .submit-btn,
+        .jersey-card {
+            transition: transform var(--transition), border-color var(--transition), background var(--transition), box-shadow var(--transition), color var(--transition), opacity var(--transition);
+        }
 
         .wa-btn {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 0.6rem;
-            background: #25D366;
-            color: #fff;
+            background: rgba(37,211,102,0.13);
+            border: 1px solid rgba(37,211,102,0.55);
+            color: #DDFBE8;
             text-decoration: none;
-            padding: 0.6rem 1.4rem;
+            padding: 0.72rem 1.25rem;
             font-family: var(--font-accent);
-            font-size: 0.78rem;
+            font-size: 0.74rem;
             font-weight: 700;
             letter-spacing: 0.08em;
+            line-height: 1;
             text-transform: uppercase;
             border-radius: 4px;
-            transition: all 0.3s ease;
         }
 
-        .wa-btn:hover { background: #1ebe5c; transform: translateY(-2px); }
+        .wa-btn svg,
+        .social-link svg,
+        .trust-item svg {
+            width: 1rem;
+            height: 1rem;
+            flex: 0 0 auto;
+        }
+
+        .wa-btn:hover {
+            background: rgba(37,211,102,0.22);
+            border-color: var(--green);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(37,211,102,0.14);
+        }
 
         .hero {
-            background: linear-gradient(135deg, #0F0F0F 0%, #1a1a1a 100%);
-            padding: 5rem 5% 4rem;
+            min-height: 74vh;
+            padding: 6.5rem 5% 5rem;
             text-align: center;
             border-bottom: 1px solid var(--border);
             position: relative;
             overflow: hidden;
+            isolation: isolate;
+            background:
+                radial-gradient(circle at 50% 30%, rgba(232,180,79,0.18), transparent 24rem),
+                radial-gradient(circle at 17% 72%, rgba(232,180,79,0.12), transparent 18rem),
+                radial-gradient(circle at 84% 18%, rgba(232,180,79,0.1), transparent 17rem),
+                linear-gradient(145deg, #050505 0%, #111 45%, #070707 100%);
+        }
+
+        .hero::before,
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
         }
 
         .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(circle at center, rgba(232,180,79,0.07) 0%, transparent 60%);
-            pointer-events: none;
+            background:
+                radial-gradient(ellipse at center, transparent 32%, rgba(0,0,0,0.32) 72%, rgba(0,0,0,0.78) 100%),
+                linear-gradient(90deg, rgba(232,180,79,0.05), transparent 28%, transparent 72%, rgba(232,180,79,0.04));
+        }
+
+        .hero::after {
+            opacity: 0.22;
+            mix-blend-mode: screen;
+            background-image:
+                repeating-radial-gradient(circle at 17% 23%, rgba(255,255,255,0.34) 0 1px, transparent 1px 4px),
+                repeating-linear-gradient(115deg, rgba(232,180,79,0.05) 0 1px, transparent 1px 9px);
+            animation: grainMove 18s linear infinite;
+        }
+
+        .hero-content {
+            width: min(860px, 100%);
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-tag,
+        .hero h1,
+        .hero-copy,
+        .price-tag,
+        .hero-subcopy {
+            animation: fadeUp 0.75s ease both;
         }
 
         .hero-tag {
             display: inline-block;
-            border: 1px solid var(--gold);
+            border: 1px solid rgba(232,180,79,0.55);
             color: var(--gold);
+            background: rgba(232,180,79,0.04);
             font-family: var(--font-accent);
             font-size: 0.72rem;
             font-weight: 700;
             letter-spacing: 0.14em;
             line-height: 1.3;
-            padding: 0.4rem 1.2rem;
-            margin-bottom: 1.5rem;
+            padding: 0.48rem 1.2rem;
+            margin-bottom: 1.45rem;
+            text-transform: uppercase;
+            box-shadow: 0 0 30px rgba(232,180,79,0.08);
         }
 
         .hero h1 {
             font-family: var(--font-display);
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: clamp(3.5rem, 9vw, 7.25rem);
             letter-spacing: 0.05em;
-            line-height: 1;
-            margin-bottom: 1rem;
+            line-height: 0.92;
+            margin-bottom: 1.15rem;
+            text-shadow: 0 18px 48px rgba(0,0,0,0.55);
+            animation-delay: 0.08s;
         }
 
-        .hero h1 span { color: var(--gold); }
+        .hero h1 span {
+            color: var(--gold);
+            text-shadow: 0 0 26px rgba(232,180,79,0.2);
+        }
 
-        .hero p {
+        .hero-copy {
             font-family: var(--font-body);
-            font-weight: 600;
-            color: var(--muted);
-            letter-spacing: 0.08em;
+            font-weight: 700;
+            color: rgba(244,240,232,0.74);
+            letter-spacing: 0.1em;
             font-size: 0.95rem;
             line-height: 1.7;
-            margin-bottom: 2rem;
+            margin-bottom: 1.65rem;
             text-transform: uppercase;
+            animation-delay: 0.16s;
         }
 
         .price-tag {
             display: inline-block;
-            background: var(--gold);
-            color: #0F0F0F;
+            background: linear-gradient(135deg, var(--gold), #F2CB78);
+            color: #090909;
             font-family: var(--font-commerce);
-            font-size: 2rem;
+            font-size: clamp(1.55rem, 3vw, 2.15rem);
             font-weight: 600;
             letter-spacing: 0.04em;
             line-height: 1.15;
-            padding: 0.5rem 2rem;
+            padding: 0.62rem 2.1rem;
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 18px 50px rgba(232,180,79,0.16);
+            animation-delay: 0.24s;
         }
 
-        .jerseys-strip {
+        .hero-subcopy {
+            max-width: 520px;
+            margin: 1.35rem auto 0;
+            color: rgba(244,240,232,0.7);
+            font-size: 0.98rem;
+            line-height: 1.7;
+            animation-delay: 0.32s;
+        }
+
+        .showcase-section {
+            padding: 3.5rem 5%;
+            border-bottom: 1px solid var(--border);
+            background:
+                linear-gradient(180deg, rgba(232,180,79,0.03), transparent),
+                #0B0B0B;
+        }
+
+        .showcase-grid {
+            width: min(1180px, 100%);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .jersey-card {
+            min-height: 21rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            background-color: #111;
+            background-image:
+                linear-gradient(180deg, rgba(10,10,10,0.18), rgba(10,10,10,0.82)),
+                radial-gradient(circle at 50% 28%, rgba(232,180,79,0.14), transparent 10rem);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            box-shadow: inset 0 0 42px rgba(232,180,79,0.12), 0 14px 40px rgba(0,0,0,0.25);
+        }
+
+        .jersey-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            border-color: rgba(232,180,79,0.72);
+            box-shadow: 0 22px 50px rgba(0,0,0,0.35), 0 0 30px rgba(232,180,79,0.12);
+        }
+
+        .jersey-card.football {
+            background-image:
+                linear-gradient(180deg, rgba(10,10,10,0.18), rgba(10,10,10,0.82)),
+                radial-gradient(circle at 50% 28%, rgba(232,180,79,0.14), transparent 10rem),
+                url("assets/jerseys/football.webp");
+        }
+
+        .jersey-card.basketball {
+            background-image:
+                linear-gradient(180deg, rgba(10,10,10,0.18), rgba(10,10,10,0.82)),
+                radial-gradient(circle at 50% 28%, rgba(232,180,79,0.14), transparent 10rem),
+                url("assets/jerseys/basketball.webp");
+        }
+
+        .jersey-card.baseball {
+            background-image:
+                linear-gradient(180deg, rgba(10,10,10,0.18), rgba(10,10,10,0.82)),
+                radial-gradient(circle at 50% 28%, rgba(232,180,79,0.14), transparent 10rem),
+                url("assets/jerseys/baseball.webp");
+        }
+
+        .premium-label {
+            align-self: flex-start;
+            position: relative;
+            z-index: 1;
+            color: #0A0A0A;
+            background: var(--gold);
+            padding: 0.38rem 0.58rem;
+            border-radius: 3px;
+            font-family: var(--font-accent);
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+
+        .jersey-card-copy {
+            position: relative;
+            z-index: 1;
+            margin-top: auto;
+        }
+
+        .club-name {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            letter-spacing: 0.06em;
+            line-height: 1;
+            color: var(--text);
+            margin-bottom: 0.55rem;
+        }
+
+        .custom-status {
+            font-family: var(--font-accent);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 0.45rem;
+        }
+
+        .price-range {
+            color: var(--muted);
+            font-family: var(--font-commerce);
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+        }
+
+        .trust-strip {
+            width: min(980px, 90%);
+            margin: 0 auto 2.4rem;
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
-            padding: 2.5rem 5%;
             flex-wrap: wrap;
-            border-bottom: 1px solid var(--border);
+            gap: 0.7rem;
         }
 
-        .jersey-pill {
-            background: var(--card);
-            border: 1px solid var(--border);
-            padding: 1rem 2rem;
-            display: flex;
+        .trust-item {
+            display: inline-flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 0.55rem;
+            border: 1px solid var(--border);
+            background: rgba(232,180,79,0.035);
+            color: rgba(244,240,232,0.78);
+            padding: 0.7rem 0.92rem;
+            border-radius: 4px;
             font-family: var(--font-accent);
-            font-size: 0.82rem;
+            font-size: 0.68rem;
             font-weight: 700;
             letter-spacing: 0.08em;
-            line-height: 1.3;
+            line-height: 1.2;
             text-transform: uppercase;
-            transition: all 0.3s;
         }
 
-        .jersey-pill:hover { border-color: var(--gold); color: var(--gold); }
-        .jersey-pill .icon { font-size: 1.5rem; }
+        .trust-item svg { color: var(--gold); }
 
         .order-section {
-            max-width: 700px;
+            width: min(760px, 100%);
             margin: 0 auto;
-            padding: 4rem 5%;
+            padding: 4rem 5% 4.5rem;
         }
 
         .section-title {
             font-family: var(--font-display);
-            font-size: 2.5rem;
+            font-size: 2.7rem;
             letter-spacing: 0.05em;
             line-height: 1;
             color: var(--gold);
             margin-bottom: 0.5rem;
+            text-align: center;
         }
 
         .section-sub {
             color: var(--muted);
             font-family: var(--font-body);
-            font-weight: 500;
+            font-weight: 600;
             letter-spacing: 0.06em;
             line-height: 1.6;
             margin-bottom: 2.5rem;
-            font-size: 0.88rem;
+            font-size: 0.84rem;
+            text-align: center;
             text-transform: uppercase;
         }
 
         .form-group { margin-bottom: 1.5rem; }
+
+        [hidden] { display: none !important; }
 
         label {
             display: block;
@@ -211,44 +439,54 @@
             text-transform: uppercase;
         }
 
-        input, select, textarea {
+        input,
+        select,
+        textarea {
             width: 100%;
-            background: var(--card);
+            background: rgba(23,23,23,0.94);
             border: 1px solid var(--border);
+            border-radius: 4px;
             color: var(--text);
-            padding: 0.9rem 1.2rem;
+            padding: 0.95rem 1.1rem;
             font-family: var(--font-body);
             font-size: 1rem;
             font-weight: 500;
             line-height: 1.45;
             letter-spacing: 0;
             outline: none;
-            transition: border-color 0.3s;
+            transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
             appearance: none;
             -webkit-appearance: none;
         }
 
-        input:focus, select:focus, textarea:focus { border-color: var(--gold); }
-
         input:focus,
         select:focus,
-        textarea:focus,
-        button:focus {
+        textarea:focus {
+            border-color: var(--gold);
+            background: #151515;
+            box-shadow: 0 0 0 3px rgba(232,180,79,0.1);
+        }
+
+        a:focus-visible,
+        input:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible,
+        button:focus-visible {
             outline: 2px solid var(--gold);
-            outline-offset: 2px;
+            outline-offset: 3px;
         }
 
         select {
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23E8B44F' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right 1.2rem center;
-            background-color: var(--card);
+            background-color: rgba(23,23,23,0.94);
             padding-right: 3rem;
         }
 
         select option { background: #1E1E1E; color: var(--text); }
-        textarea { resize: vertical; min-height: 80px; }
-        .notes-field { min-height: 60px; }
+        textarea { resize: vertical; min-height: 82px; }
+        .notes-field { min-height: 64px; }
 
         .form-row {
             display: grid;
@@ -256,9 +494,16 @@
             gap: 1.5rem;
         }
 
+        .order-summary,
+        .payment-card,
+        .success-box {
+            border-radius: 8px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+        }
+
         .order-summary {
-            background: rgba(232,180,79,0.05);
-            border: 1px solid var(--gold);
+            background: rgba(232,180,79,0.045);
+            border: 1px solid var(--border);
             padding: 1.5rem;
             margin-bottom: 2rem;
             font-family: var(--font-body);
@@ -308,15 +553,17 @@
         .summary-row.total span:last-child { color: var(--gold); font-weight: 600; }
 
         .payment-card {
-            background: rgba(232,180,79,0.08);
-            border: 1px solid var(--gold);
+            background:
+                radial-gradient(circle at top right, rgba(232,180,79,0.12), transparent 12rem),
+                rgba(232,180,79,0.055);
+            border: 1px solid rgba(232,180,79,0.45);
             padding: 1.5rem;
             margin-bottom: 2rem;
         }
 
         .payment-title {
             font-family: var(--font-display);
-            font-size: 1.3rem;
+            font-size: 1.45rem;
             letter-spacing: 0.06em;
             line-height: 1.1;
             color: var(--gold);
@@ -376,7 +623,8 @@
             margin-top: 1.5rem;
             padding: 1rem;
             background: rgba(37,211,102,0.08);
-            border: 1px solid #25D366;
+            border: 1px solid rgba(37,211,102,0.55);
+            border-radius: 4px;
             font-family: var(--font-body);
             font-size: 0.88rem;
             line-height: 1.7;
@@ -384,63 +632,74 @@
         }
 
         .payment-note strong {
-            color: #25D366;
+            color: #BDF7CF;
             font-family: var(--font-commerce);
             font-weight: 600;
             letter-spacing: 0.03em;
         }
 
         .payment-note a {
-            color: #25D366;
+            color: #BDF7CF;
             text-decoration: none;
             font-weight: 700;
         }
 
         .payment-note a:hover,
-        .success-link:hover,
-        .social-link:hover {
-            opacity: 0.85;
+        .success-link:hover {
+            color: var(--green);
+            text-shadow: 0 0 16px rgba(37,211,102,0.25);
         }
 
         .submit-btn {
             width: 100%;
-            background: var(--gold);
-            color: #0F0F0F;
-            border: none;
+            background: linear-gradient(135deg, var(--gold), #F1C56C);
+            color: #080808;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 4px;
             padding: 1.2rem;
             font-family: var(--font-display);
             font-size: 1.5rem;
             letter-spacing: 0.08em;
             line-height: 1;
             cursor: pointer;
-            transition: all 0.3s;
             position: relative;
             overflow: hidden;
         }
 
-        .submit-btn:hover { background: #FFD060; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(232,180,79,0.3); }
-        .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 36px rgba(232,180,79,0.24);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
 
         .success-box {
             display: none;
             background: rgba(37,211,102,0.08);
-            border: 1px solid #25D366;
+            border: 1px solid rgba(37,211,102,0.55);
             padding: 2.5rem;
             text-align: center;
             margin-bottom: 2rem;
         }
 
         .success-box.show { display: block; }
-        .success-box h3 { font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 0.06em; line-height: 1.1; color: #25D366; margin-bottom: 1rem; }
+        .success-box h3 { font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 0.06em; line-height: 1.1; color: #BDF7CF; margin-bottom: 1rem; }
         .success-box p { color: var(--muted); font-family: var(--font-body); font-weight: 500; line-height: 1.8; }
-        .success-box a { color: #25D366; text-decoration: none; }
+        .success-box a { color: #BDF7CF; text-decoration: none; }
         .success-kicker { color: var(--gold); }
         .success-amount, .success-account { font-family: var(--font-commerce); font-weight: 600; letter-spacing: 0.03em; color: var(--text); }
         .success-amount { font-size: 1.1rem; color: var(--gold); }
-        .success-link { color: #25D366; font-weight: 700; }
+        .success-link { color: #BDF7CF; font-weight: 700; }
 
         .socials-bar {
-            background: #0F0F0F;
+            background:
+                radial-gradient(circle at center top, rgba(232,180,79,0.08), transparent 19rem),
+                #080808;
             border-top: 1px solid var(--border);
             padding: 3.5rem 5%;
             text-align: center;
@@ -448,7 +707,7 @@
 
         .socials-title {
             font-family: var(--font-display);
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             letter-spacing: 0.06em;
             line-height: 1;
             color: var(--gold);
@@ -474,27 +733,37 @@
         }
 
         .social-link {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 0.6rem;
-            padding: 0.8rem 1.8rem;
+            padding: 0.82rem 1.8rem;
             border: 1px solid var(--border);
+            border-radius: 4px;
             color: var(--text);
             text-decoration: none;
             font-size: 0.78rem;
             font-weight: 700;
             letter-spacing: 0.08em;
             line-height: 1.3;
-            transition: all 0.3s;
             font-family: var(--font-accent);
             text-transform: uppercase;
         }
 
-        .social-link:hover { border-color: var(--gold); color: var(--gold); }
-        .social-link.whatsapp:hover { border-color: #25D366; color: #25D366; }
+        .social-link:hover {
+            transform: translateY(-2px);
+            border-color: var(--gold);
+            color: var(--gold);
+            box-shadow: 0 14px 32px rgba(232,180,79,0.12);
+        }
+
+        .social-link.whatsapp:hover {
+            border-color: var(--green);
+            color: #BDF7CF;
+            box-shadow: 0 14px 32px rgba(37,211,102,0.12);
+        }
 
         footer {
-            background: #0A0A0A;
+            background: #050505;
             padding: 1.5rem 5%;
             text-align: center;
             color: var(--muted);
@@ -506,7 +775,8 @@
 
         .spinner {
             display: inline-block;
-            width: 16px; height: 16px;
+            width: 16px;
+            height: 16px;
             border: 2px solid rgba(0,0,0,0.3);
             border-top-color: #0F0F0F;
             border-radius: 50%;
@@ -515,60 +785,158 @@
             margin-right: 8px;
         }
 
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes grainMove {
+            0% { transform: translate3d(0,0,0); }
+            50% { transform: translate3d(-1.5%,1%,0); }
+            100% { transform: translate3d(0,0,0); }
+        }
+
         @keyframes spin { to { transform: rotate(360deg); } }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .showcase-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
 
         @media (max-width: 600px) {
             .form-row { grid-template-columns: 1fr; }
-            header { padding: 1rem 5%; }
-            .logo { font-size: 1.75rem; letter-spacing: 0.08em; }
-            .hero { padding: 4rem 5% 3rem; }
-            .hero h1 { font-size: 3rem; letter-spacing: 0.04em; }
-            .hero p { font-size: 0.86rem; letter-spacing: 0.06em; }
-            .hero-tag { font-size: 0.66rem; letter-spacing: 0.1em; }
-            .price-tag { font-size: 1.6rem; }
-            .jerseys-strip { gap: 0.75rem; padding: 2rem 5%; }
-            .jersey-pill { width: 100%; justify-content: center; padding: 0.9rem 1rem; }
+            header { padding: 0.95rem 5%; }
+            .logo-wordmark { font-size: 1.72rem; letter-spacing: 0.08em; }
+            .logo-mark { width: 1.8rem; height: 1.8rem; }
+            .wa-btn { padding: 0.72rem; }
+            .wa-btn span.label { display: none; }
+            .hero { min-height: auto; padding: 4.7rem 5% 3.7rem; }
+            .hero h1 { font-size: 3.45rem; letter-spacing: 0.04em; }
+            .hero-copy { font-size: 0.82rem; letter-spacing: 0.07em; }
+            .hero-tag { font-size: 0.64rem; letter-spacing: 0.1em; }
+            .price-tag { width: 100%; padding-inline: 1rem; }
+            .hero-subcopy { font-size: 0.92rem; }
+            .showcase-section { padding: 2.5rem 5%; }
+            .showcase-grid { grid-template-columns: 1fr; }
+            .jersey-card { min-height: 19.5rem; }
             .order-section { padding: 3rem 5%; }
-            .section-title { font-size: 2.2rem; }
-            .section-sub { font-size: 0.82rem; letter-spacing: 0.04em; margin-bottom: 2rem; }
+            .trust-strip { width: 100%; justify-content: stretch; }
+            .trust-item { width: 100%; justify-content: center; }
+            .section-title { font-size: 2.25rem; }
+            .section-sub { font-size: 0.8rem; letter-spacing: 0.04em; margin-bottom: 2rem; }
             input, select, textarea { font-size: 1rem; padding: 1rem; }
             .payment-row, .summary-row { align-items: flex-start; }
             .payment-value, .summary-row span:last-child { max-width: 52%; overflow-wrap: anywhere; }
             .submit-btn { font-size: 1.35rem; }
-            .wa-btn span.label { display: none; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <a href="#" class="logo">👑 DRIP XI</a>
+    <a href="#" class="logo" aria-label="DRIP XI home">
+        <span class="logo-lockup">
+            <svg class="logo-mark" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+                <path d="M8 31 L14 16 L24 28 L34 16 L40 31" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
+                <path d="M10 34 H38" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+                <path d="M15 38 H33" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+                <path d="M24 11 V28" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+            </svg>
+            <span class="logo-wordmark">DRIP XI</span>
+        </span>
+    </a>
     <a href="https://wa.me/2347069533486" target="_blank" rel="noopener noreferrer" class="wa-btn">
-        💬 <span class="label">CHAT ON</span> WHATSAPP
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M4.8 19.2l1-3.7A7.5 7.5 0 1 1 9 18.7l-4.2.5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+            <path d="M9.5 8.4c.2-.4.4-.4.7-.4h.5c.2 0 .4.1.5.4l.7 1.5c.1.3.1.5-.1.7l-.4.5c.7 1.1 1.5 1.9 2.7 2.5l.5-.6c.2-.2.4-.3.7-.2l1.6.7c.3.1.4.3.4.6v.4c0 .4-.2.7-.5.9-.8.4-2.3.1-4-.9-1.9-1.1-3.6-2.8-4.4-4.7-.4-.8-.3-1.5.1-2z" fill="currentColor"/>
+        </svg>
+        <span class="label">CHAT ON</span> WHATSAPP
     </a>
 </header>
 
 <section class="hero">
-    <div class="hero-tag">ORIGINALITY • QUALITY • ROYALTY</div>
-    <h1>YOUR JERSEY.<br><span>YOUR DRIP.</span></h1>
-    <p>PREMIUM CUSTOM JERSEYS · MADE TO ORDER</p>
-    <div class="price-tag">FROM ₦25,000 PER JERSEY</div>
+    <div class="hero-content">
+        <div class="hero-tag">ORIGINALITY • QUALITY • ROYALTY</div>
+        <h1>YOUR JERSEY.<br><span>YOUR DRIP.</span></h1>
+        <p class="hero-copy">CUSTOM FOOTBALL CULTURE · BUILT FOR YOUR IDENTITY</p>
+        <div class="price-tag">FROM ₦25,000 PER JERSEY</div>
+        <p class="hero-subcopy">Crafted for fans who wear football like a statement.</p>
+    </div>
 </section>
 
-<div class="jerseys-strip">
-    <div class="jersey-pill"><span class="icon">⚽</span> FOOTBALL JERSEYS</div>
-    <div class="jersey-pill"><span class="icon">🏀</span> BASKETBALL JERSEYS</div>
-    <div class="jersey-pill"><span class="icon">⚾</span> BASEBALL JERSEYS</div>
-</div>
+<section class="showcase-section" aria-label="Premium jersey showcase">
+    <div class="showcase-grid">
+        <article class="jersey-card football">
+            <span class="premium-label">Premium</span>
+            <div class="jersey-card-copy">
+                <h2 class="club-name">PSG Noir</h2>
+                <p class="custom-status">Name and number ready</p>
+                <p class="price-range">₦25,000 - ₦30,000</p>
+            </div>
+        </article>
+        <article class="jersey-card basketball">
+            <span class="premium-label">Premium</span>
+            <div class="jersey-card-copy">
+                <h2 class="club-name">Madrid Gold</h2>
+                <p class="custom-status">Custom identity available</p>
+                <p class="price-range">₦25,000 - ₦30,000</p>
+            </div>
+        </article>
+        <article class="jersey-card baseball">
+            <span class="premium-label">Premium</span>
+            <div class="jersey-card-copy">
+                <h2 class="club-name">United Black</h2>
+                <p class="custom-status">Made to order</p>
+                <p class="price-range">₦25,000 - ₦30,000</p>
+            </div>
+        </article>
+        <article class="jersey-card football">
+            <span class="premium-label">Premium</span>
+            <div class="jersey-card-copy">
+                <h2 class="club-name">Barca Night</h2>
+                <p class="custom-status">Personalized finish</p>
+                <p class="price-range">₦25,000 - ₦30,000</p>
+            </div>
+        </article>
+    </div>
+</section>
 
 <section class="order-section">
+    <div class="trust-strip" aria-label="Order trust signals">
+        <div class="trust-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3l7 3v5c0 4.6-2.8 8-7 10-4.2-2-7-5.4-7-10V6l7-3z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8.5 12l2.2 2.2 4.8-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            VERIFIED QUALITY
+        </div>
+        <div class="trust-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 4h12l-2 16H8L6 4z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 8h6M10 12h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            CUSTOM NAME &amp; NUMBER
+        </div>
+        <div class="trust-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 18l.8-3A7 7 0 1 1 9 18.4L5 18z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 10h6M9 13h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            WHATSAPP SUPPORT
+        </div>
+        <div class="trust-item">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 7h11v10H3zM14 10h3l4 4v3h-7z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M7 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM17.5 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+            FAST DELIVERY
+        </div>
+    </div>
     <div class="section-title">PLACE YOUR ORDER</div>
     <div class="section-sub">FILL IN YOUR DETAILS · WE'LL HANDLE THE REST</div>
 
     <div class="success-box" id="successBox" aria-live="polite">
-        <h3>✅ ORDER CONFIRMED!</h3>
+        <h3>ORDER CONFIRMED</h3>
         <p>
-            Payment received and your order is locked in! 🔒<br>
+            Payment received and your order is locked in.<br>
             We'll reach out to confirm your details and arrange delivery.<br><br>
             Questions? <a href="https://wa.me/2347069533486" target="_blank" rel="noopener noreferrer">Chat with us on WhatsApp</a>
         </p>
@@ -596,9 +964,9 @@
                 <label for="jerseyType">JERSEY TYPE *</label>
                 <select id="jerseyType" required>
                     <option value="" disabled selected>Select jersey type</option>
-                    <option value="Football">⚽ Football Jersey</option>
-                    <option value="Basketball">🏀 Basketball Jersey</option>
-                    <option value="Baseball">⚾ Baseball Jersey</option>
+                    <option value="Football">Football Jersey</option>
+                    <option value="Basketball">Basketball Jersey</option>
+                    <option value="Baseball">Baseball Jersey</option>
                 </select>
             </div>
             <div class="form-group">
@@ -612,7 +980,7 @@
         </div>
 
         <!-- Team/Club Selection (appears dynamically based on jersey type) -->
-        <div class="form-group" id="teamSection" style="display: none;">
+        <div class="form-group" id="teamSection" hidden>
             <label id="teamLabel" for="teamClub">SELECT TEAM/CLUB *</label>
             <select id="teamClub">
                 <option value="" disabled selected>First select jersey type above</option>
@@ -642,7 +1010,7 @@
 
         <!-- PAYMENT METHOD -->
         <div class="payment-card">
-            <div class="payment-title">💰 PAYMENT DETAILS</div>
+            <div class="payment-title">PAYMENT DETAILS</div>
             <div class="payment-list">
                 <div class="payment-row">
                     <span>BANK NAME</span>
@@ -662,7 +1030,7 @@
                 </div>
             </div>
             <div class="payment-note">
-                <strong>📱 AFTER PAYMENT:</strong> Send your payment receipt/screenshot to us on <a href="https://wa.me/2347069533486" target="_blank" rel="noopener noreferrer">WhatsApp (+234 706 953 3486)</a> with your name to confirm your order.
+                <strong>AFTER PAYMENT:</strong> Send your payment receipt/screenshot to us on <a href="https://wa.me/2347069533486" target="_blank" rel="noopener noreferrer">WhatsApp (+234 706 953 3486)</a> with your name to confirm your order.
             </div>
         </div>
 
@@ -684,9 +1052,15 @@
 <!-- SOCIALS -->
 <div class="socials-bar">
     <div class="socials-title">CONNECT WITH US</div>
-    <div class="socials-sub">FOLLOW FOR NEW DROPS, UPDATES & INSPIRATION</div>
+    <div class="socials-sub">FOLLOW FOR NEW DROPS, UPDATES &amp; INSPIRATION</div>
     <div class="social-links">
-        <a href="https://wa.me/2347069533486" target="_blank" rel="noopener noreferrer" class="social-link whatsapp">💬 WHATSAPP</a>
+        <a href="https://wa.me/2347069533486" target="_blank" rel="noopener noreferrer" class="social-link whatsapp">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M4.8 19.2l1-3.7A7.5 7.5 0 1 1 9 18.7l-4.2.5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                <path d="M9.5 8.4c.2-.4.4-.4.7-.4h.5c.2 0 .4.1.5.4l.7 1.5c.1.3.1.5-.1.7l-.4.5c.7 1.1 1.5 1.9 2.7 2.5l.5-.6c.2-.2.4-.3.7-.2l1.6.7c.3.1.4.3.4.6v.4c0 .4-.2.7-.5.9-.8.4-2.3.1-4-.9-1.9-1.1-3.6-2.8-4.4-4.7-.4-.8-.3-1.5.1-2z" fill="currentColor"/>
+            </svg>
+            WHATSAPP
+        </a>
     </div>
 </div>
 
@@ -695,9 +1069,7 @@
 </footer>
 
 <script>
-    // ════════════════════════════════════════════════════════════
-    //  ✅ SETUP COMPLETE - READY TO GO LIVE!
-    // ════════════════════════════════════════════════════════════
+    // EmailJS setup.
     //
     //  EmailJS is configured and working.
     //  All orders will send notifications to: 11.drip.eleven@gmail.com
@@ -710,8 +1082,6 @@
     //  - Add Paystack Public Key below
     //  - Uncomment the Paystack code sections
     //
-    // ════════════════════════════════════════════════════════════
-
 	    const EMAILJS_PUBLIC_KEY  = "lmg0gZVXEITGHCSbS";
 	    const EMAILJS_SERVICE_ID  = "service_9u6ulhs";
 	    const EMAILJS_TEMPLATE_ID = "template_5p2of5c";
@@ -809,7 +1179,7 @@
         
         if (jerseyType && teamOptions[jerseyType]) {
             // Show team section
-            teamSection.style.display = 'block';
+            teamSection.hidden = false;
             teamClub.required = true;
             
             // Update label based on sport
@@ -833,7 +1203,7 @@
                 teamClub.appendChild(option);
             });
         } else {
-            teamSection.style.display = 'none';
+            teamSection.hidden = true;
             teamClub.required = false;
         }
         
@@ -893,7 +1263,7 @@
 	        const account = document.createElement('strong');
 	        const whatsappLink = document.createElement('a');
 
-	        title.textContent = '📋 ORDER RECEIVED!';
+	        title.textContent = 'ORDER RECEIVED';
 	        nextStep.textContent = 'NEXT STEP:';
 	        nextStep.className = 'success-kicker';
 	        amount.textContent = amountDue;
@@ -921,7 +1291,7 @@
 	            document.createElement('br'),
 	            'Then send your payment receipt to us on ',
 	            whatsappLink,
-	            " with your name to confirm your order. We'll start working on it immediately! 🔥"
+	            " with your name to confirm your order. We'll start working on it immediately."
 	        );
 	        elements.successBox.replaceChildren(title, message);
 	        elements.successBox.classList.add('show');
