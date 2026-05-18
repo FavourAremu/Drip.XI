@@ -6,7 +6,7 @@
     <title>Drip XI | Order Your Jersey</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Oswald:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -18,13 +18,21 @@
             --border: rgba(232,180,79,0.2);
             --text: #F0F0F0;
             --muted: rgba(240,240,240,0.6);
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-commerce: 'Oswald', sans-serif;
+            --font-accent: 'Space Grotesk', sans-serif;
         }
 
         body {
-            font-family: 'Oswald', sans-serif;
+            font-family: var(--font-body);
             background: var(--dark);
             color: var(--text);
             min-height: 100vh;
+            font-size: 16px;
+            line-height: 1.6;
+            letter-spacing: 0;
+            text-rendering: geometricPrecision;
         }
 
         header {
@@ -40,7 +48,7 @@
         }
 
         .logo {
-            font-family: 'Bebas Neue', cursive;
+            font-family: var(--font-display);
             font-size: 2rem;
             color: var(--gold);
             letter-spacing: 3px;
@@ -50,6 +58,8 @@
             gap: 0.5rem;
         }
 
+        .logo:hover { opacity: 0.8; }
+
         .wa-btn {
             display: flex;
             align-items: center;
@@ -58,10 +68,11 @@
             color: #fff;
             text-decoration: none;
             padding: 0.6rem 1.4rem;
-            font-family: 'Oswald', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 400;
-            letter-spacing: 1px;
+            font-family: var(--font-accent);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
             border-radius: 4px;
             transition: all 0.3s ease;
         }
@@ -90,16 +101,19 @@
             display: inline-block;
             border: 1px solid var(--gold);
             color: var(--gold);
-            font-size: 0.75rem;
-            letter-spacing: 3px;
+            font-family: var(--font-accent);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            line-height: 1.3;
             padding: 0.4rem 1.2rem;
             margin-bottom: 1.5rem;
         }
 
         .hero h1 {
-            font-family: 'Bebas Neue', cursive;
+            font-family: var(--font-display);
             font-size: clamp(3rem, 8vw, 6rem);
-            letter-spacing: 5px;
+            letter-spacing: 0.05em;
             line-height: 1;
             margin-bottom: 1rem;
         }
@@ -107,20 +121,25 @@
         .hero h1 span { color: var(--gold); }
 
         .hero p {
-            font-weight: 300;
+            font-family: var(--font-body);
+            font-weight: 600;
             color: var(--muted);
-            letter-spacing: 2px;
-            font-size: 1rem;
+            letter-spacing: 0.08em;
+            font-size: 0.95rem;
+            line-height: 1.7;
             margin-bottom: 2rem;
+            text-transform: uppercase;
         }
 
         .price-tag {
             display: inline-block;
             background: var(--gold);
             color: #0F0F0F;
-            font-family: 'Bebas Neue', cursive;
+            font-family: var(--font-commerce);
             font-size: 2rem;
-            letter-spacing: 2px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            line-height: 1.15;
             padding: 0.5rem 2rem;
         }
 
@@ -140,8 +159,12 @@
             display: flex;
             align-items: center;
             gap: 0.8rem;
-            font-size: 0.95rem;
-            letter-spacing: 1px;
+            font-family: var(--font-accent);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            line-height: 1.3;
+            text-transform: uppercase;
             transition: all 0.3s;
         }
 
@@ -155,29 +178,37 @@
         }
 
         .section-title {
-            font-family: 'Bebas Neue', cursive;
+            font-family: var(--font-display);
             font-size: 2.5rem;
-            letter-spacing: 3px;
+            letter-spacing: 0.05em;
+            line-height: 1;
             color: var(--gold);
             margin-bottom: 0.5rem;
         }
 
         .section-sub {
             color: var(--muted);
-            font-weight: 300;
-            letter-spacing: 1px;
+            font-family: var(--font-body);
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            line-height: 1.6;
             margin-bottom: 2.5rem;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
+            text-transform: uppercase;
         }
 
         .form-group { margin-bottom: 1.5rem; }
 
         label {
             display: block;
+            font-family: var(--font-body);
             font-size: 0.75rem;
-            letter-spacing: 2px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            line-height: 1.35;
             color: var(--gold);
             margin-bottom: 0.5rem;
+            text-transform: uppercase;
         }
 
         input, select, textarea {
@@ -186,10 +217,11 @@
             border: 1px solid var(--border);
             color: var(--text);
             padding: 0.9rem 1.2rem;
-            font-family: 'Oswald', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 300;
-            letter-spacing: 1px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 1.45;
+            letter-spacing: 0;
             outline: none;
             transition: border-color 0.3s;
             appearance: none;
@@ -197,6 +229,14 @@
         }
 
         input:focus, select:focus, textarea:focus { border-color: var(--gold); }
+
+        input:focus,
+        select:focus,
+        textarea:focus,
+        button:focus {
+            outline: 2px solid var(--gold);
+            outline-offset: 2px;
+        }
 
         select {
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23E8B44F' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
@@ -208,6 +248,7 @@
 
         select option { background: #1E1E1E; color: var(--text); }
         textarea { resize: vertical; min-height: 80px; }
+        .notes-field { min-height: 60px; }
 
         .form-row {
             display: grid;
@@ -220,13 +261,18 @@
             border: 1px solid var(--gold);
             padding: 1.5rem;
             margin-bottom: 2rem;
+            font-family: var(--font-body);
         }
 
         .summary-label {
+            font-family: var(--font-accent);
             font-size: 0.75rem;
-            letter-spacing: 2px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            line-height: 1.35;
             color: var(--gold);
             margin-bottom: 1rem;
+            text-transform: uppercase;
         }
 
         .summary-row {
@@ -234,8 +280,17 @@
             justify-content: space-between;
             align-items: center;
             padding: 0.4rem 0;
+            gap: 1rem;
+            font-family: var(--font-body);
             font-size: 0.9rem;
+            font-weight: 500;
+            line-height: 1.45;
             color: var(--muted);
+        }
+
+        .summary-row span:last-child {
+            text-align: right;
+            color: var(--text);
         }
 
         .summary-row.total {
@@ -243,10 +298,109 @@
             margin-top: 0.8rem;
             padding-top: 0.8rem;
             color: var(--text);
+            font-family: var(--font-commerce);
             font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
         }
 
         .summary-row.total span:last-child { color: var(--gold); font-weight: 600; }
+
+        .payment-card {
+            background: rgba(232,180,79,0.08);
+            border: 1px solid var(--gold);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .payment-title {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            letter-spacing: 0.06em;
+            line-height: 1.1;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .payment-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            line-height: 1.45;
+        }
+
+        .payment-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .payment-row span:first-child {
+            color: var(--muted);
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .payment-value {
+            font-family: var(--font-commerce);
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-align: right;
+        }
+
+        .payment-value.important {
+            font-size: 1.12rem;
+            color: var(--gold);
+        }
+
+        .payment-row.total {
+            border-top: 1px solid var(--border);
+            padding-top: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .payment-amount {
+            font-family: var(--font-commerce);
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            line-height: 1.1;
+            color: var(--gold);
+        }
+
+        .payment-note {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(37,211,102,0.08);
+            border: 1px solid #25D366;
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            line-height: 1.7;
+            color: var(--muted);
+        }
+
+        .payment-note strong {
+            color: #25D366;
+            font-family: var(--font-commerce);
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+
+        .payment-note a {
+            color: #25D366;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .payment-note a:hover,
+        .success-link:hover,
+        .social-link:hover {
+            opacity: 0.85;
+        }
 
         .submit-btn {
             width: 100%;
@@ -254,9 +408,10 @@
             color: #0F0F0F;
             border: none;
             padding: 1.2rem;
-            font-family: 'Bebas Neue', cursive;
+            font-family: var(--font-display);
             font-size: 1.5rem;
-            letter-spacing: 3px;
+            letter-spacing: 0.08em;
+            line-height: 1;
             cursor: pointer;
             transition: all 0.3s;
             position: relative;
@@ -276,9 +431,13 @@
         }
 
         .success-box.show { display: block; }
-        .success-box h3 { font-family: 'Bebas Neue', cursive; font-size: 1.8rem; letter-spacing: 2px; color: #25D366; margin-bottom: 1rem; }
-        .success-box p { color: var(--muted); font-weight: 300; line-height: 1.8; }
+        .success-box h3 { font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 0.06em; line-height: 1.1; color: #25D366; margin-bottom: 1rem; }
+        .success-box p { color: var(--muted); font-family: var(--font-body); font-weight: 500; line-height: 1.8; }
         .success-box a { color: #25D366; text-decoration: none; }
+        .success-kicker { color: var(--gold); }
+        .success-amount, .success-account { font-family: var(--font-commerce); font-weight: 600; letter-spacing: 0.03em; color: var(--text); }
+        .success-amount { font-size: 1.1rem; color: var(--gold); }
+        .success-link { color: #25D366; font-weight: 700; }
 
         .socials-bar {
             background: #0F0F0F;
@@ -288,18 +447,23 @@
         }
 
         .socials-title {
-            font-family: 'Bebas Neue', cursive;
+            font-family: var(--font-display);
             font-size: 1.8rem;
-            letter-spacing: 3px;
+            letter-spacing: 0.06em;
+            line-height: 1;
             color: var(--gold);
             margin-bottom: 0.5rem;
         }
 
         .socials-sub {
             color: var(--muted);
+            font-family: var(--font-body);
             font-size: 0.85rem;
-            letter-spacing: 2px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            line-height: 1.6;
             margin-bottom: 2rem;
+            text-transform: uppercase;
         }
 
         .social-links {
@@ -317,10 +481,13 @@
             border: 1px solid var(--border);
             color: var(--text);
             text-decoration: none;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            line-height: 1.3;
             transition: all 0.3s;
-            font-family: 'Oswald', sans-serif;
+            font-family: var(--font-accent);
+            text-transform: uppercase;
         }
 
         .social-link:hover { border-color: var(--gold); color: var(--gold); }
@@ -332,8 +499,9 @@
             text-align: center;
             color: var(--muted);
             font-size: 0.8rem;
-            letter-spacing: 1px;
-            font-weight: 300;
+            letter-spacing: 0.04em;
+            font-weight: 500;
+            line-height: 1.6;
         }
 
         .spinner {
@@ -351,7 +519,22 @@
 
         @media (max-width: 600px) {
             .form-row { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 3rem; }
+            header { padding: 1rem 5%; }
+            .logo { font-size: 1.75rem; letter-spacing: 0.08em; }
+            .hero { padding: 4rem 5% 3rem; }
+            .hero h1 { font-size: 3rem; letter-spacing: 0.04em; }
+            .hero p { font-size: 0.86rem; letter-spacing: 0.06em; }
+            .hero-tag { font-size: 0.66rem; letter-spacing: 0.1em; }
+            .price-tag { font-size: 1.6rem; }
+            .jerseys-strip { gap: 0.75rem; padding: 2rem 5%; }
+            .jersey-pill { width: 100%; justify-content: center; padding: 0.9rem 1rem; }
+            .order-section { padding: 3rem 5%; }
+            .section-title { font-size: 2.2rem; }
+            .section-sub { font-size: 0.82rem; letter-spacing: 0.04em; margin-bottom: 2rem; }
+            input, select, textarea { font-size: 1rem; padding: 1rem; }
+            .payment-row, .summary-row { align-items: flex-start; }
+            .payment-value, .summary-row span:last-child { max-width: 52%; overflow-wrap: anywhere; }
+            .submit-btn { font-size: 1.35rem; }
             .wa-btn span.label { display: none; }
         }
     </style>
@@ -369,7 +552,7 @@
     <div class="hero-tag">ORIGINALITY • QUALITY • ROYALTY</div>
     <h1>YOUR JERSEY.<br><span>YOUR DRIP.</span></h1>
     <p>PREMIUM CUSTOM JERSEYS · MADE TO ORDER</p>
-    <div class="price-tag">₦30,000 PER JERSEY</div>
+    <div class="price-tag">FROM ₦25,000 PER JERSEY</div>
 </section>
 
 <div class="jerseys-strip">
@@ -382,7 +565,7 @@
     <div class="section-title">PLACE YOUR ORDER</div>
     <div class="section-sub">FILL IN YOUR DETAILS · WE'LL HANDLE THE REST</div>
 
-    <div class="success-box" id="successBox">
+    <div class="success-box" id="successBox" aria-live="polite">
         <h3>✅ ORDER CONFIRMED!</h3>
         <p>
             Payment received and your order is locked in! 🔒<br>
@@ -399,7 +582,7 @@
             </div>
             <div class="form-group">
                 <label for="phone">PHONE NUMBER *</label>
-                <input type="tel" id="phone" placeholder="e.g. 08012345678" autocomplete="tel" inputmode="tel" pattern="[0-9+()\s-]{7,20}" required>
+                <input type="tel" id="phone" placeholder="e.g. 08012345678" autocomplete="tel" inputmode="tel" pattern="[0-9()+\s-]{7,20}" required>
             </div>
         </div>
 
@@ -454,32 +637,32 @@
 
         <div class="form-group">
             <label for="notes">ADDITIONAL NOTES</label>
-            <textarea id="notes" placeholder="Special requests, colour preferences, etc." style="min-height:60px" maxlength="300"></textarea>
+            <textarea id="notes" class="notes-field" placeholder="Special requests, colour preferences, etc." maxlength="300"></textarea>
         </div>
 
         <!-- PAYMENT METHOD -->
-        <div style="background: rgba(232,180,79,0.08); border: 1px solid var(--gold); padding: 1.5rem; margin-bottom: 2rem;">
-            <div style="font-family: 'Bebas Neue', cursive; font-size: 1.3rem; letter-spacing: 2px; color: var(--gold); margin-bottom: 1rem;">💰 PAYMENT DETAILS</div>
-            <div style="display: flex; flex-direction: column; gap: 0.8rem; font-size: 0.9rem;">
-                <div style="display: flex; justify-content: space-between;">
-                    <span style="color: var(--muted);">BANK NAME</span>
-                    <span style="font-weight: 600; letter-spacing: 1px;">OPAY</span>
+        <div class="payment-card">
+            <div class="payment-title">💰 PAYMENT DETAILS</div>
+            <div class="payment-list">
+                <div class="payment-row">
+                    <span>BANK NAME</span>
+                    <span class="payment-value">OPAY</span>
                 </div>
-                <div style="display: flex; justify-content: space-between;">
-                    <span style="color: var(--muted);">ACCOUNT NUMBER</span>
-                    <span style="font-weight: 600; letter-spacing: 1px; font-size: 1.1rem; color: var(--gold);">9033932478</span>
+                <div class="payment-row">
+                    <span>ACCOUNT NUMBER</span>
+                    <span class="payment-value important">9033932478</span>
                 </div>
-                <div style="display: flex; justify-content: space-between;">
-                    <span style="color: var(--muted);">ACCOUNT NAME</span>
-                    <span style="font-weight: 600; letter-spacing: 1px;">BOLUWATIFE EBENEZER</span>
+                <div class="payment-row">
+                    <span>ACCOUNT NAME</span>
+                    <span class="payment-value">BOLUWATIFE EBENEZER</span>
                 </div>
-                <div style="display: flex; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 0.8rem; margin-top: 0.5rem;">
-                    <span style="color: var(--muted);">AMOUNT TO PAY</span>
-                    <span style="font-family: 'Bebas Neue', cursive; font-size: 1.5rem; color: var(--gold);">₦30,000</span>
+                <div class="payment-row total">
+                    <span>AMOUNT TO PAY</span>
+                    <span class="payment-amount" id="paymentAmount">₦25,000</span>
                 </div>
             </div>
-            <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(37,211,102,0.08); border: 1px solid #25D366; font-size: 0.85rem; line-height: 1.6; color: var(--muted);">
-                <strong style="color: #25D366;">📱 AFTER PAYMENT:</strong> Send your payment receipt/screenshot to us on <a href="https://wa.me/2347069533486" target="_blank" rel="noopener noreferrer" style="color: #25D366; text-decoration: none; font-weight: 600;">WhatsApp (+234 706 953 3486)</a> with your name to confirm your order.
+            <div class="payment-note">
+                <strong>📱 AFTER PAYMENT:</strong> Send your payment receipt/screenshot to us on <a href="https://wa.me/2347069533486" target="_blank" rel="noopener noreferrer">WhatsApp (+234 706 953 3486)</a> with your name to confirm your order.
             </div>
         </div>
 
@@ -489,7 +672,7 @@
             <div class="summary-row"><span>JERSEY TYPE</span><span id="summaryType">—</span></div>
             <div class="summary-row"><span>SIZE</span><span id="summarySize">—</span></div>
             <div class="summary-row"><span>CUSTOM NAME / NUMBER</span><span id="summaryCustom">—</span></div>
-            <div class="summary-row total"><span>TOTAL</span><span>₦30,000</span></div>
+            <div class="summary-row total"><span>TOTAL</span><span id="summaryTotal">₦25,000</span></div>
         </div>
 
         <button type="submit" class="submit-btn" id="submitBtn">
@@ -551,7 +734,9 @@
 	        submitBtn: document.getElementById('submitBtn'),
 	        summaryType: document.getElementById('summaryType'),
 	        summarySize: document.getElementById('summarySize'),
-	        summaryCustom: document.getElementById('summaryCustom')
+	        summaryCustom: document.getElementById('summaryCustom'),
+	        summaryTotal: document.getElementById('summaryTotal'),
+	        paymentAmount: document.getElementById('paymentAmount')
 	    };
 	    let emailjsReady = false;
 
@@ -566,7 +751,7 @@
 	    }
 
     // Team/Club options for each sport
-    const teamOptions = {
+	    const teamOptions = {
         Football: [
             'Manchester United', 'Manchester City', 'Chelsea', 'Liverpool', 'Arsenal',
             'Barcelona', 'Real Madrid', 'Bayern Munich', 'PSG', 'AC Milan',
@@ -586,8 +771,34 @@
             'Atlanta Braves', 'Houston Astros', 'Philadelphia Phillies',
             'New York Mets', 'Chicago White Sox', 'Detroit Tigers',
             'Texas Rangers', 'Other (Specify in notes)'
-        ]
-    };
+	        ]
+	    };
+
+	    const pricing = {
+	        football: {
+	            base: 25000,
+	            customized: 30000
+	        },
+	        basketball: {
+	            base: 25000,
+	            customized: 30000
+	        },
+	        baseball: {
+	            base: 25000,
+	            customized: 30000
+	        }
+	    };
+
+	    function formatPrice(amount) {
+	        return `₦${amount.toLocaleString('en-NG')}`;
+	    }
+
+	    function getCurrentPrice() {
+	        const jerseyKey = elements.jerseyType.value.toLowerCase();
+	        const jerseyPricing = pricing[jerseyKey] || pricing.football;
+	        const hasCustomization = elements.customName.value.trim() || elements.jerseyNumber.value.trim();
+	        return hasCustomization ? jerseyPricing.customized : jerseyPricing.base;
+	    }
 
     // Handle jersey type selection - show team dropdown
 	    elements.jerseyType.addEventListener('change', function() {
@@ -644,6 +855,7 @@
         const size = elements.size.value || '—';
         const name = elements.customName.value;
         const num  = elements.jerseyNumber.value;
+	        const currentPrice = getCurrentPrice();
         
         // Combine jersey type with team
         let jerseyDisplay = type;
@@ -657,6 +869,8 @@
         elements.summaryType.textContent = jerseyDisplay;
         elements.summarySize.textContent = size;
 	        elements.summaryCustom.textContent = custom;
+	        elements.summaryTotal.textContent = formatPrice(currentPrice);
+	        elements.paymentAmount.textContent = formatPrice(currentPrice);
 	    }
 
 	    updateSummary();
@@ -671,7 +885,7 @@
 	        return form.reportValidity();
 	    }
 
-	    function showSuccessMessage(fullName) {
+	    function showSuccessMessage(fullName, amountDue) {
 	        const title = document.createElement('h3');
 	        const message = document.createElement('p');
 	        const nextStep = document.createElement('strong');
@@ -681,15 +895,15 @@
 
 	        title.textContent = '📋 ORDER RECEIVED!';
 	        nextStep.textContent = 'NEXT STEP:';
-	        nextStep.style.color = 'var(--gold)';
-	        amount.textContent = '₦30,000';
-	        amount.style.fontSize = '1.1rem';
+	        nextStep.className = 'success-kicker';
+	        amount.textContent = amountDue;
+	        amount.className = 'success-amount';
 	        account.textContent = 'Opay - 9033932478 (Boluwatife Ebenezer)';
+	        account.className = 'success-account';
 	        whatsappLink.href = 'https://wa.me/2347069533486';
 	        whatsappLink.target = '_blank';
 	        whatsappLink.rel = 'noopener noreferrer';
-	        whatsappLink.style.color = '#25D366';
-	        whatsappLink.style.fontWeight = '600';
+	        whatsappLink.className = 'success-link';
 	        whatsappLink.textContent = 'WhatsApp';
 
 	        message.append(
@@ -726,10 +940,13 @@
         const jerseyType   = elements.jerseyType.value;
         const teamClub     = elements.teamClub.value || 'Not specified';
         const size         = elements.size.value;
-        const customName   = elements.customName.value.trim() || 'None';
-        const jerseyNumber = elements.jerseyNumber.value.trim() || 'None';
+        const customNameValue = elements.customName.value.trim();
+        const jerseyNumberValue = elements.jerseyNumber.value.trim();
+        const customName   = customNameValue || 'None';
+        const jerseyNumber = jerseyNumberValue || 'None';
 	        const address      = elements.address.value.trim();
 	        const notes        = elements.notes.value.trim() || 'None';
+	        const amountDue    = formatPrice(getCurrentPrice());
 
 	        const btn = elements.submitBtn;
 	        const spinner = document.createElement('span');
@@ -745,7 +962,7 @@
 	        btn.replaceChildren(spinner, ' SUBMITTING ORDER...');
 	        
 	        // Send email notification to store owner
-	        emailjsClient.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+	        const emailPromise = emailjsClient.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
             customer_name: fullName,
             phone:         phone,
             email:         email,
@@ -757,9 +974,14 @@
             address:       address,
             notes:         notes,
             payment_ref:   'BANK TRANSFER - Pending confirmation',
-            amount:        '₦30,000'
-        }).then(function() {
-            showSuccessMessage(fullName);
+	            amount:        amountDue
+	        });
+	        const timeoutPromise = new Promise((_, reject) =>
+	            setTimeout(() => reject(new Error('timeout')), 10000)
+	        );
+
+	        Promise.race([emailPromise, timeoutPromise]).then(function() {
+            showSuccessMessage(fullName, amountDue);
             elements.orderForm.style.display = 'none';
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }).catch(function(err) {
