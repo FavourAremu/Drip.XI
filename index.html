@@ -416,6 +416,122 @@
 
         .trust-item svg { color: var(--gold); }
 
+        .drip-wall {
+            padding: 5.5rem 5% 6rem;
+            border-bottom: 1px solid var(--border);
+            background:
+                radial-gradient(circle at 78% 16%, rgba(232,180,79,0.11), transparent 22rem),
+                linear-gradient(180deg, #070707 0%, #101010 48%, #070707 100%);
+            overflow: hidden;
+        }
+
+        .drip-wall-inner {
+            width: min(1180px, 100%);
+            margin: 0 auto;
+        }
+
+        .drip-wall-header {
+            max-width: 560px;
+            margin-bottom: 2.6rem;
+        }
+
+        .drip-wall-title {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 8vw, 5.8rem);
+            font-weight: 700;
+            line-height: 0.92;
+            letter-spacing: 0.06em;
+            color: var(--text);
+            text-transform: uppercase;
+        }
+
+        .drip-wall-subtext {
+            margin-top: 0.75rem;
+            color: rgba(244,240,232,0.68);
+            font-family: var(--font-accent);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            line-height: 1.7;
+        }
+
+        .drip-wall-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.85fr);
+            gap: 1.4rem;
+            align-items: stretch;
+        }
+
+        .drip-wall-stack {
+            display: grid;
+            gap: 1.4rem;
+        }
+
+        .drip-wall-card {
+            position: relative;
+            overflow: hidden;
+            min-height: 18rem;
+            border: 1px solid rgba(232,180,79,0.18);
+            border-radius: 4px;
+            background: #090909;
+            box-shadow: 0 22px 58px rgba(0,0,0,0.42);
+            isolation: isolate;
+            transition: transform 0.7s cubic-bezier(0.2, 0.72, 0.22, 1), border-color 0.7s ease, box-shadow 0.7s ease;
+        }
+
+        .drip-wall-card.featured {
+            min-height: 38rem;
+        }
+
+        .drip-wall-card::before,
+        .drip-wall-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .drip-wall-card::before {
+            background:
+                linear-gradient(180deg, rgba(0,0,0,0.04), rgba(0,0,0,0.42)),
+                radial-gradient(circle at 50% 8%, rgba(232,180,79,0.12), transparent 34%);
+        }
+
+        .drip-wall-card::after {
+            border: 1px solid transparent;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.045);
+            transition: border-color 0.7s ease, box-shadow 0.7s ease;
+        }
+
+        .drip-wall-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(232,180,79,0.72);
+            box-shadow: 0 26px 78px rgba(0,0,0,0.56), 0 0 34px rgba(232,180,79,0.14);
+        }
+
+        .drip-wall-card:hover::after {
+            border-color: rgba(232,180,79,0.46);
+            box-shadow: inset 0 0 0 1px rgba(232,180,79,0.18), inset 0 0 42px rgba(232,180,79,0.08);
+        }
+
+        .drip-wall-media {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            filter: saturate(0.72) contrast(1.08) brightness(0.9);
+            transform: scale(1);
+            transition: transform 1s cubic-bezier(0.2, 0.72, 0.22, 1), filter 1s ease;
+        }
+
+        .drip-wall-card:hover .drip-wall-media {
+            filter: saturate(0.9) contrast(1.1) brightness(0.98);
+            transform: scale(1.045);
+        }
+
         .order-section {
             width: min(760px, 100%);
             margin: 0 auto;
@@ -905,6 +1021,15 @@
             .jersey-card.basketball {
                 flex: 1.1;
             }
+            .drip-wall-grid {
+                grid-template-columns: 1fr;
+            }
+            .drip-wall-stack {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .drip-wall-card.featured {
+                min-height: 34rem;
+            }
         }
 
         @media (max-width: 768px) {
@@ -924,6 +1049,19 @@
             .jersey-card.basketball .sport-name {
                 font-size: 2.4rem;
             }
+            .drip-wall {
+                padding: 4rem 5%;
+            }
+            .drip-wall-header {
+                margin-bottom: 2rem;
+            }
+            .drip-wall-stack {
+                grid-template-columns: 1fr;
+            }
+            .drip-wall-card,
+            .drip-wall-card.featured {
+                min-height: 28rem;
+            }
         }
 
         @media (max-width: 600px) {
@@ -940,6 +1078,12 @@
             .price-tag { width: 100%; padding-inline: 1rem; }
             .hero-subcopy { font-size: 0.92rem; }
             .showcase-section { padding: 2.5rem 5%; }
+            .drip-wall { padding: 3.2rem 5%; }
+            .drip-wall-subtext { font-size: 0.82rem; }
+            .drip-wall-card,
+            .drip-wall-card.featured {
+                min-height: 24rem;
+            }
             .jersey-card {
                 aspect-ratio: 0.75;
             }
@@ -989,7 +1133,7 @@
         <div class="hero-tag">ORIGINALITY • QUALITY • ROYALTY</div>
         <h1>YOUR JERSEY.<br><span>YOUR DRIP.</span></h1>
         <p class="hero-copy">CUSTOM FOOTBALL CULTURE · BUILT FOR YOUR IDENTITY</p>
-        <div class="price-tag">FROM ₦25,000 PER JERSEY</div>
+        <div class="price-tag">₦30,000 PER JERSEY</div>
         <p class="hero-subcopy">Crafted for fans who wear football like a statement.</p>
     </div>
 </section>
@@ -1001,7 +1145,7 @@
             <div class="jersey-card-copy">
                 <h2 class="sport-name">Football</h2>
                 <p class="jersey-accent">Custom identity • Number available</p>
-                <p class="price">FROM ₦25,000</p>
+                <p class="price">₦30,000</p>
             </div>
         </article>
         <article class="jersey-card basketball">
@@ -1009,7 +1153,7 @@
             <div class="jersey-card-copy">
                 <h2 class="sport-name">Basketball</h2>
                 <p class="jersey-accent">Custom identity • Number available</p>
-                <p class="price">FROM ₦25,000</p>
+                <p class="price">₦30,000</p>
             </div>
         </article>
         <article class="jersey-card baseball">
@@ -1017,9 +1161,31 @@
             <div class="jersey-card-copy">
                 <h2 class="sport-name">Baseball</h2>
                 <p class="jersey-accent">Custom identity • Number available</p>
-                <p class="price">FROM ₦25,000</p>
+                <p class="price">₦30,000</p>
             </div>
         </article>
+    </div>
+</section>
+
+<section class="drip-wall" aria-labelledby="dripWallTitle">
+    <div class="drip-wall-inner">
+        <div class="drip-wall-header">
+            <h2 class="drip-wall-title" id="dripWallTitle">DRIP WALL</h2>
+            <p class="drip-wall-subtext">Real customers. Real kits. Real presence.</p>
+        </div>
+        <div class="drip-wall-grid">
+            <article class="drip-wall-card featured">
+                <img class="drip-wall-media" src="assets/gallery/customer-1.webp" alt="DRIP XI customer wearing a custom football kit" loading="lazy">
+            </article>
+            <div class="drip-wall-stack">
+                <article class="drip-wall-card">
+                    <video class="drip-wall-media" src="assets/gallery/customer-video.mp4" autoplay muted loop playsinline preload="metadata" aria-label="DRIP XI customer video"></video>
+                </article>
+                <article class="drip-wall-card">
+                    <img class="drip-wall-media" src="assets/gallery/customer-2.webp" alt="DRIP XI customer styled in a custom jersey" loading="lazy">
+                </article>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -1049,6 +1215,8 @@
         <h3>ORDER CONFIRMED</h3>
         <p>
             Payment received and your order is locked in.<br>
+            Total amount: <span class="success-amount" id="successAmount">₦30,000</span><br>
+            Jersey version: <span class="success-kicker" id="successVersion">Not selected</span><br>
             We'll reach out to confirm your details and arrange delivery.<br><br>
             Questions? <a href="https://wa.me/2347069533486" target="_blank" rel="noopener noreferrer">Chat with us on WhatsApp</a>
         </p>
@@ -1099,6 +1267,19 @@
             </select>
         </div>
 
+        <div class="form-group">
+            <label for="jerseyVersion">JERSEY VERSION *</label>
+            <select id="jerseyVersion" required>
+                <option value="" disabled selected>Select Jersey Version</option>
+                <option>Home Kit</option>
+                <option>Away Kit</option>
+                <option>Third Kit</option>
+                <option>Fourth Kit</option>
+                <option>Retro Kit</option>
+                <option>Special Edition</option>
+            </select>
+        </div>
+
         <div class="form-row">
             <div class="form-group">
                 <label for="customName">CUSTOM NAME ON JERSEY</label>
@@ -1131,6 +1312,10 @@
                 <span id="summaryTeam">Not selected</span>
             </div>
             <div class="summary-row">
+                <span>Jersey Version</span>
+                <span id="summaryVersion">Not selected</span>
+            </div>
+            <div class="summary-row">
                 <span>Size</span>
                 <span id="summarySize">Large</span>
             </div>
@@ -1140,11 +1325,11 @@
             </div>
             <div class="summary-row">
                 <span>Unit Price</span>
-                <span id="summaryPrice">₦25,000</span>
+                <span id="summaryPrice">₦30,000</span>
             </div>
             <div class="summary-row total">
                 <span>TOTAL COST</span>
-                <span id="summaryTotal">₦25,000</span>
+                <span id="summaryTotal">₦30,000</span>
             </div>
         </div>
 
@@ -1153,7 +1338,7 @@
             <div class="payment-list">
                 <div class="payment-row">
                     <span>Direct Bank Transfer</span>
-                    <span class="payment-value important">₦ TO CONFIRM</span>
+                    <span class="payment-value important" id="paymentAmount">₦30,000</span>
                 </div>
                 <div class="payment-row">
                     <span>After Order Submission</span>
@@ -1203,48 +1388,95 @@
 </footer>
 
 <script>
-    emailjs.init("YOUR_PUBLIC_KEY");
+    const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+    const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+    const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+    const JERSEY_PRICE = 30000;
+    const SUBMISSION_TIMEOUT_MS = 15000;
+    const getEmailJS = () => window.emailjs;
+
+    let emailJSInitialized = false;
+    let isSubmitting = false;
+
+    function formatPrice(amount) {
+        return `₦${amount.toLocaleString()}`;
+    }
+
+    function initializeEmailJS() {
+        const emailjs = getEmailJS();
+
+        if (!emailjs || typeof emailjs.init !== "function") {
+            return false;
+        }
+
+        if (!emailJSInitialized) {
+            try {
+                emailjs.init(EMAILJS_PUBLIC_KEY);
+                emailJSInitialized = true;
+            } catch (error) {
+                console.error("EmailJS init error:", error);
+                emailJSInitialized = false;
+            }
+        }
+
+        return emailJSInitialized;
+    }
+
+    function withTimeout(promise, timeoutMs) {
+        let timeoutId;
+        const timeout = new Promise((_, reject) => {
+            timeoutId = window.setTimeout(() => {
+                reject(new Error("EmailJS request timed out"));
+            }, timeoutMs);
+        });
+
+        return Promise.race([promise, timeout]).finally(() => {
+            window.clearTimeout(timeoutId);
+        });
+    }
+
+    initializeEmailJS();
 
     const jerseyData = {
         Football: [
-            { name: "Real Madrid", price: 25000 },
-            { name: "Barcelona", price: 25000 },
-            { name: "Manchester United", price: 25000 },
-            { name: "Manchester City", price: 25000 },
-            { name: "Arsenal", price: 25000 },
-            { name: "Chelsea", price: 25000 },
-            { name: "Liverpool", price: 25000 },
-            { name: "PSG", price: 25000 },
-            { name: "Bayern Munich", price: 25000 },
-            { name: "Juventus", price: 25000 },
-            { name: "AC Milan", price: 25000 },
-            { name: "Inter Milan", price: 25000 },
-            { name: "Atletico Madrid", price: 25000 },
-            { name: "Borussia Dortmund", price: 25000 },
-            { name: "Napoli", price: 25000 },
-            { name: "Ajax", price: 25000 },
+            "Real Madrid",
+            "Barcelona",
+            "Manchester United",
+            "Manchester City",
+            "Arsenal",
+            "Chelsea",
+            "Liverpool",
+            "PSG",
+            "Bayern Munich",
+            "Juventus",
+            "AC Milan",
+            "Inter Milan",
+            "Atletico Madrid",
+            "Borussia Dortmund",
+            "Napoli",
+            "Ajax",
         ],
         Basketball: [
-            { name: "Los Angeles Lakers", price: 25000 },
-            { name: "Chicago Bulls", price: 25000 },
-            { name: "Boston Celtics", price: 25000 },
-            { name: "Golden State Warriors", price: 25000 },
-            { name: "Miami Heat", price: 25000 },
-            { name: "Brooklyn Nets", price: 25000 },
-            { name: "Phoenix Suns", price: 25000 },
-            { name: "New York Knicks", price: 25000 },
-            { name: "Dallas Mavericks", price: 25000 },
-            { name: "Milwaukee Bucks", price: 25000 },
+            "Los Angeles Lakers",
+            "Chicago Bulls",
+            "Boston Celtics",
+            "Golden State Warriors",
+            "Miami Heat",
+            "Brooklyn Nets",
+            "Phoenix Suns",
+            "New York Knicks",
+            "Dallas Mavericks",
+            "Milwaukee Bucks",
         ],
         Baseball: [
-            { name: "New York Yankees", price: 25000 },
-            { name: "Los Angeles Dodgers", price: 25000 },
-            { name: "Boston Red Sox", price: 25000 },
-            { name: "Chicago Cubs", price: 25000 },
-            { name: "New York Mets", price: 25000 },
-            { name: "Atlanta Braves", price: 25000 },
-            { name: "San Francisco Giants", price: 25000 },
-            { name: "Philadelphia Phillies", price: 25000 },
+            "New York Yankees",
+            "Los Angeles Dodgers",
+            "Boston Red Sox",
+            "Chicago Cubs",
+            "New York Mets",
+            "Atlanta Braves",
+            "San Francisco Giants",
+            "Philadelphia Phillies",
         ],
     };
 
@@ -1252,11 +1484,15 @@
     const teamSection = document.getElementById("teamSection");
     const teamLabel = document.getElementById("teamLabel");
     const teamClubSelect = document.getElementById("teamClub");
+    const jerseyVersionSelect = document.getElementById("jerseyVersion");
     const sizeSelect = document.getElementById("size");
     const quantityInput = document.getElementById("quantity");
     const orderForm = document.getElementById("orderForm");
     const submitBtn = document.getElementById("submitBtn");
     const successBox = document.getElementById("successBox");
+    const successAmount = document.getElementById("successAmount");
+    const successVersion = document.getElementById("successVersion");
+    const paymentAmount = document.getElementById("paymentAmount");
 
     function updateTeamOptions() {
         const selectedJerseyType = jerseyTypeSelect.value;
@@ -1266,9 +1502,8 @@
             teamClubSelect.innerHTML = '<option value="" disabled selected>Select a team</option>';
             jerseyData[selectedJerseyType].forEach((team) => {
                 const option = document.createElement("option");
-                option.value = team.name;
-                option.textContent = team.name;
-                option.dataset.price = team.price;
+                option.value = team;
+                option.textContent = team;
                 teamClubSelect.appendChild(option);
             });
         } else {
@@ -1280,35 +1515,44 @@
     function updateSummary() {
         const jerseyType = jerseyTypeSelect.value || "Not selected";
         const team = teamClubSelect.value || "Not selected";
+        const jerseyVersion = jerseyVersionSelect.value || "Not selected";
         const size = sizeSelect.value;
         const quantity = parseInt(quantityInput.value) || 1;
 
         document.getElementById("summaryJerseyType").textContent = jerseyType;
         document.getElementById("summaryTeam").textContent = team;
+        document.getElementById("summaryVersion").textContent = jerseyVersion;
         document.getElementById("summarySize").textContent = size;
         document.getElementById("summaryQuantity").textContent = quantity;
 
-        const selectedOption = teamClubSelect.options[teamClubSelect.selectedIndex];
-        const unitPrice = selectedOption?.dataset?.price || 25000;
-        const totalPrice = parseInt(unitPrice) * quantity;
+        const totalPrice = JERSEY_PRICE * quantity;
 
-        document.getElementById("summaryPrice").textContent = `₦${parseInt(unitPrice).toLocaleString()}`;
-        document.getElementById("summaryTotal").textContent = `₦${totalPrice.toLocaleString()}`;
+        document.getElementById("summaryPrice").textContent = formatPrice(JERSEY_PRICE);
+        document.getElementById("summaryTotal").textContent = formatPrice(totalPrice);
+        paymentAmount.textContent = formatPrice(totalPrice);
+        successAmount.textContent = formatPrice(totalPrice);
+        successVersion.textContent = jerseyVersion;
     }
 
     jerseyTypeSelect.addEventListener("change", updateTeamOptions);
     teamClubSelect.addEventListener("change", updateSummary);
+    jerseyVersionSelect.addEventListener("change", updateSummary);
     sizeSelect.addEventListener("change", updateSummary);
     quantityInput.addEventListener("change", updateSummary);
 
     orderForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
+        if (isSubmitting) {
+            return;
+        }
+
         const fullName = document.getElementById("fullName").value;
         const phone = document.getElementById("phone").value;
         const email = document.getElementById("email").value;
         const jerseyType = jerseyTypeSelect.value;
         const team = teamClubSelect.value;
+        const jerseyVersion = jerseyVersionSelect.value;
         const size = sizeSelect.value;
         const customName = document.getElementById("customName").value;
         const jerseyNumber = document.getElementById("jerseyNumber").value;
@@ -1316,11 +1560,20 @@
         const notes = document.getElementById("notes").value;
         const totalCost = document.getElementById("summaryTotal").textContent;
 
-        if (!fullName || !phone || !email || !jerseyType || !team || !size) {
+        if (!fullName || !phone || !email || !jerseyType || !team || !jerseyVersion || !size) {
             alert("Please fill in all required fields!");
             return;
         }
 
+        const emailjs = getEmailJS();
+        const isEmailJSReady = initializeEmailJS();
+
+        if (!emailjs || typeof emailjs.send !== "function" || !isEmailJSReady) {
+            alert("Order email service is not ready yet. Please try again in a moment or contact us on WhatsApp.");
+            return;
+        }
+
+        isSubmitting = true;
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<span class="spinner"></span>PROCESSING...';
 
@@ -1331,6 +1584,7 @@
             customer_email: email,
             jersey_type: jerseyType,
             team_club: team,
+            jersey_version: jerseyVersion,
             size: size,
             custom_name: customName || "None",
             jersey_number: jerseyNumber || "None",
@@ -1340,7 +1594,7 @@
         };
 
         try {
-            await emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", templateParams);
+            await withTimeout(emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams), SUBMISSION_TIMEOUT_MS);
             successBox.classList.add("show");
             orderForm.style.display = "none";
             window.scrollTo({ top: 0, behavior: "smooth" });
@@ -1349,6 +1603,7 @@
             alert("There was an error submitting your order. Please try again or contact us on WhatsApp.");
             submitBtn.disabled = false;
             submitBtn.innerHTML = "CONFIRM ORDER";
+            isSubmitting = false;
         }
     });
 
