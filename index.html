@@ -691,60 +691,118 @@
 
         .payment-card {
             background:
-                radial-gradient(circle at top right, rgba(232,180,79,0.12), transparent 12rem),
-                rgba(232,180,79,0.055);
+                radial-gradient(circle at top right, rgba(232,180,79,0.14), transparent 14rem),
+                linear-gradient(145deg, rgba(232,180,79,0.075), rgba(255,255,255,0.018)),
+                rgba(8,8,8,0.92);
             border: 1px solid rgba(232,180,79,0.45);
-            padding: 1.5rem;
+            padding: 1.6rem;
             margin-bottom: 2rem;
+            overflow: hidden;
         }
 
         .payment-title {
             font-family: var(--font-display);
-            font-size: 1.45rem;
+            font-size: 1.55rem;
             letter-spacing: 0.06em;
             line-height: 1.1;
             color: var(--gold);
-            margin-bottom: 1rem;
+            margin-bottom: 0.25rem;
         }
 
-        .payment-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            font-family: var(--font-body);
-            font-size: 0.9rem;
+        .payment-method {
+            color: var(--text);
+            font-family: var(--font-accent);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
             line-height: 1.45;
+            text-transform: uppercase;
+            margin-bottom: 1.35rem;
         }
 
-        .payment-row {
-            display: flex;
-            justify-content: space-between;
+        .payment-details {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 1rem;
+            margin-bottom: 1.35rem;
         }
 
-        .payment-row span:first-child {
+        .payment-detail {
+            min-width: 0;
+            padding: 1rem;
+            border: 1px solid rgba(232,180,79,0.18);
+            background: rgba(0,0,0,0.24);
+            border-radius: 4px;
+        }
+
+        .payment-label {
+            display: block;
             color: var(--muted);
-            font-weight: 600;
-            letter-spacing: 0.06em;
+            font-family: var(--font-body);
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            line-height: 1.35;
+            margin-bottom: 0.35rem;
             text-transform: uppercase;
         }
 
         .payment-value {
+            display: block;
+            max-width: 100%;
+            color: var(--text);
             font-family: var(--font-commerce);
+            font-size: 1.02rem;
             font-weight: 600;
             letter-spacing: 0.04em;
-            text-align: right;
+            line-height: 1.35;
+            overflow-wrap: anywhere;
         }
 
         .payment-value.important {
-            font-size: 1.12rem;
             color: var(--gold);
+            font-size: 1.28rem;
         }
 
-        .payment-row.total {
-            border-top: 1px solid var(--border);
-            padding-top: 0.8rem;
-            margin-top: 0.5rem;
+        .payment-step {
+            margin-top: 1.2rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid rgba(232,180,79,0.2);
+        }
+
+        .payment-step-title {
+            color: var(--gold);
+            font-family: var(--font-accent);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            line-height: 1.35;
+            margin-bottom: 0.45rem;
+            text-transform: uppercase;
+        }
+
+        .payment-step-copy,
+        .payment-flow {
+            color: var(--muted);
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            font-weight: 500;
+            line-height: 1.7;
+        }
+
+        .payment-flow {
+            color: rgba(244,240,232,0.78);
+            font-family: var(--font-accent);
+            font-size: 0.74rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            overflow-wrap: anywhere;
+        }
+
+        .payment-flow span {
+            color: var(--gold);
+            padding: 0 0.28rem;
         }
 
         .payment-amount {
@@ -1100,7 +1158,10 @@
             .section-sub { font-size: 0.8rem; letter-spacing: 0.04em; margin-bottom: 2rem; }
             input, select, textarea { font-size: 1rem; padding: 1rem; }
             .payment-row, .summary-row { align-items: flex-start; }
-            .payment-value, .summary-row span:last-child { max-width: 52%; overflow-wrap: anywhere; }
+            .summary-row span:last-child { max-width: 52%; overflow-wrap: anywhere; }
+            .payment-details { grid-template-columns: 1fr; }
+            .payment-card { padding: 1.25rem; }
+            .payment-flow { font-size: 0.7rem; line-height: 1.8; }
             .submit-btn { font-size: 1.35rem; }
         }
     </style>
@@ -1239,31 +1300,13 @@
             <input type="email" id="email" placeholder="your@email.com" autocomplete="email" maxlength="120" required>
         </div>
 
-        <div class="form-row">
-            <div class="form-group">
-                <label for="jerseyType">JERSEY TYPE *</label>
-                <select id="jerseyType" required>
-                    <option value="" disabled selected>Select jersey type</option>
-                    <option value="Football">Football Jersey</option>
-                    <option value="Basketball">Basketball Jersey</option>
-                    <option value="Baseball">Baseball Jersey</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="size">SIZE *</label>
-                <select id="size" required>
-                    <option selected>Large</option>
-                    <option>2XL</option>
-                    <option>3XL</option>
-                </select>
-            </div>
-        </div>
-
-        <!-- Team/Club Selection (appears dynamically based on jersey type) -->
-        <div class="form-group" id="teamSection" hidden>
-            <label id="teamLabel" for="teamClub">SELECT TEAM/CLUB *</label>
-            <select id="teamClub">
-                <option value="" disabled selected>First select jersey type above</option>
+        <div class="form-group">
+            <label for="jerseyType">JERSEY TYPE *</label>
+            <select id="jerseyType" required>
+                <option value="" disabled selected>Select jersey type</option>
+                <option value="Football">Football Jersey</option>
+                <option value="Basketball">Basketball Jersey</option>
+                <option value="Baseball">Baseball Jersey</option>
             </select>
         </div>
 
@@ -1271,12 +1314,29 @@
             <label for="jerseyVersion">JERSEY VERSION *</label>
             <select id="jerseyVersion" required>
                 <option value="" disabled selected>Select Jersey Version</option>
-                <option>Home Kit</option>
-                <option>Away Kit</option>
+                <option>Home</option>
+                <option>Away</option>
                 <option>Third Kit</option>
-                <option>Fourth Kit</option>
-                <option>Retro Kit</option>
-                <option>Special Edition</option>
+                <option>Retro</option>
+                <option>Player Edition</option>
+                <option>Fan Version</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="size">SIZE *</label>
+            <select id="size" required>
+                <option selected>Large</option>
+                <option>2XL</option>
+                <option>3XL</option>
+            </select>
+        </div>
+
+        <!-- Team/Club Selection (appears dynamically based on jersey type) -->
+        <div class="form-group" id="teamSection" hidden>
+            <label id="teamLabel" for="teamClub">SELECT TEAM/CLUB *</label>
+            <select id="teamClub">
+                <option value="" disabled selected>First select jersey type above</option>
             </select>
         </div>
 
@@ -1335,18 +1395,32 @@
 
         <div class="payment-card">
             <div class="payment-title">PAYMENT METHOD</div>
-            <div class="payment-list">
-                <div class="payment-row">
-                    <span>Direct Bank Transfer</span>
+            <div class="payment-method">DIRECT BANK TRANSFER</div>
+            <div class="payment-details">
+                <div class="payment-detail">
+                    <span class="payment-label">ACCOUNT NAME</span>
+                    <span class="payment-value">BOLUWATIFE EBENEZER</span>
+                </div>
+                <div class="payment-detail">
+                    <span class="payment-label">BANK</span>
+                    <span class="payment-value">OPAY</span>
+                </div>
+                <div class="payment-detail">
+                    <span class="payment-label">ACCOUNT NUMBER</span>
+                    <span class="payment-value">9033932478</span>
+                </div>
+                <div class="payment-detail">
+                    <span class="payment-label">AMOUNT</span>
                     <span class="payment-value important" id="paymentAmount">₦30,000</span>
                 </div>
-                <div class="payment-row">
-                    <span>After Order Submission</span>
-                    <span class="payment-value">Follow instructions via WhatsApp</span>
-                </div>
             </div>
-            <div class="payment-note">
-                <strong>How it works:</strong> Submit your order → Get total cost → Complete payment via bank transfer → We start crafting your jersey → You receive updates via WhatsApp
+            <div class="payment-step">
+                <div class="payment-step-title">AFTER PAYMENT</div>
+                <p class="payment-step-copy">Send your proof of payment via WhatsApp after submitting your order.</p>
+            </div>
+            <div class="payment-step">
+                <div class="payment-step-title">PROCESS FLOW</div>
+                <p class="payment-flow">ORDER SUBMITTED <span>→</span> PAYMENT CONFIRMED <span>→</span> JERSEY IN PRODUCTION <span>→</span> DELIVERY UPDATES VIA WHATSAPP</p>
             </div>
         </div>
 
@@ -1392,7 +1466,7 @@
     const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
     const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
     const JERSEY_PRICE = 30000;
-    const SUBMISSION_TIMEOUT_MS = 15000;
+    const SUBMISSION_TIMEOUT_MS = 12000;
     const getEmailJS = () => window.emailjs;
 
     let emailJSInitialized = false;
@@ -1489,6 +1563,7 @@
     const quantityInput = document.getElementById("quantity");
     const orderForm = document.getElementById("orderForm");
     const submitBtn = document.getElementById("submitBtn");
+    const submitBtnDefaultText = submitBtn.innerHTML;
     const successBox = document.getElementById("successBox");
     const successAmount = document.getElementById("successAmount");
     const successVersion = document.getElementById("successVersion");
@@ -1569,7 +1644,7 @@
         const isEmailJSReady = initializeEmailJS();
 
         if (!emailjs || typeof emailjs.send !== "function" || !isEmailJSReady) {
-            alert("Order email service is not ready yet. Please try again in a moment or contact us on WhatsApp.");
+            alert("Order system temporarily unavailable. Please contact us directly on WhatsApp.");
             return;
         }
 
@@ -1600,9 +1675,14 @@
             window.scrollTo({ top: 0, behavior: "smooth" });
         } catch (error) {
             console.error("EmailJS error:", error);
-            alert("There was an error submitting your order. Please try again or contact us on WhatsApp.");
+            if (error.message === "EmailJS request timed out") {
+                alert("Connection timed out. Please try again.");
+            } else {
+                alert("Failed to submit order. Please try again.");
+            }
+        } finally {
             submitBtn.disabled = false;
-            submitBtn.innerHTML = "CONFIRM ORDER";
+            submitBtn.innerHTML = submitBtnDefaultText;
             isSubmitting = false;
         }
     });
