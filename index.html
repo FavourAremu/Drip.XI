@@ -630,30 +630,22 @@
 
         .drip-wall-grid {
             display: grid;
-            grid-template-columns: minmax(0, 1.42fr) minmax(300px, 0.78fr);
-            gap: 1.8rem;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.6rem;
             align-items: stretch;
-        }
-
-        .drip-wall-stack {
-            display: grid;
-            gap: 1.8rem;
         }
 
         .drip-wall-card {
             position: relative;
             overflow: hidden;
-            min-height: 18rem;
+            aspect-ratio: 0.92;
+            min-height: 0;
             border: 1px solid rgba(244,240,232,0.12);
-            border-radius: 6px;
+            border-radius: 8px;
             background: linear-gradient(180deg, #141414, #080808);
             box-shadow: 0 24px 64px rgba(0,0,0,0.42);
             isolation: isolate;
             transition: transform 0.7s cubic-bezier(0.2, 0.72, 0.22, 1), border-color 0.7s ease, box-shadow 0.7s ease, background 0.7s ease;
-        }
-
-        .drip-wall-card.featured {
-            min-height: 40rem;
         }
 
         .drip-wall-card::before,
@@ -1132,7 +1124,7 @@
 
         .timeline-card,
         .benefits-card,
-        .preorder-placeholder {
+        .preorder-video-card {
             border: 1px solid rgba(244,240,232,0.11);
             border-radius: 8px;
             background:
@@ -1172,6 +1164,15 @@
             color: var(--text);
         }
 
+        .timeline-copy {
+            margin-top: 0.9rem;
+            color: rgba(244,240,232,0.66);
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            font-weight: 500;
+            line-height: 1.7;
+        }
+
         .benefits-card {
             padding: 2rem;
         }
@@ -1209,52 +1210,110 @@
             box-shadow: 0 0 1rem rgba(232,180,79,0.32);
         }
 
-        .preorder-gallery-title {
-            margin-bottom: 1.35rem;
+        .preorder-archive {
+            margin-top: 0.2rem;
+        }
+
+        .preorder-archive-header {
+            max-width: 720px;
+            margin: 0 auto 1.5rem;
             text-align: center;
         }
 
-        .preorder-placeholder-grid {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 1.2rem;
+        .preorder-archive-subtitle {
+            margin-top: 0.8rem;
+            color: rgba(244,240,232,0.68);
+            font-family: var(--font-body);
+            font-size: 0.92rem;
+            font-weight: 500;
+            line-height: 1.75;
         }
 
-        .preorder-placeholder {
+        .preorder-gallery-title {
+            text-align: center;
+        }
+
+        .preorder-video-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.25rem;
+        }
+
+        .preorder-video-card {
             position: relative;
             overflow: hidden;
             min-height: 16rem;
-            padding: 1.15rem;
-            display: flex;
-            align-items: flex-end;
+            border-radius: 1rem;
+            border: 1px solid rgba(232,180,79,0.22);
+            background: rgba(7,7,7,0.92);
+            box-shadow: 0 1.3rem 3.2rem rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.05);
             isolation: isolate;
+            transition: transform 0.7s cubic-bezier(0.2, 0.72, 0.22, 1), border-color 0.7s ease, box-shadow 0.7s ease;
         }
 
-        .preorder-placeholder::before {
-            content: '';
-            position: absolute;
-            inset: 1rem;
-            border: 1px dashed rgba(232,180,79,0.24);
-            border-radius: 6px;
-            background:
-                linear-gradient(135deg, rgba(232,180,79,0.08), transparent 36%),
-                rgba(255,255,255,0.018);
-            z-index: -1;
+        .preorder-video-card.featured {
+            grid-column: 1 / -1;
+            min-height: 30rem;
         }
 
-        .preorder-placeholder::after {
+        .preorder-video-card::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, transparent 35%, rgba(0,0,0,0.45));
+            background: linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.32));
             pointer-events: none;
-            z-index: -1;
+            z-index: 1;
         }
 
-        .placeholder-label {
-            color: rgba(244,240,232,0.68);
-            font-size: 0.66rem;
-            letter-spacing: 0.12em;
+        .preorder-video-media {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            object-position: center;
+            background: #040404;
+            filter: saturate(0.84) contrast(1.08) brightness(0.94);
+            transform: scale(1.01);
+            transition: transform 1s cubic-bezier(0.2, 0.72, 0.22, 1), filter 1s ease;
+        }
+
+        .preorder-video-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(232,180,79,0.28);
+            box-shadow: 0 1.7rem 4rem rgba(0,0,0,0.36), inset 0 1px 0 rgba(255,255,255,0.06);
+        }
+
+        .preorder-video-card:hover .preorder-video-media {
+            transform: scale(1.04);
+            filter: saturate(0.92) contrast(1.1) brightness(0.98);
+        }
+
+        @media (max-width: 860px) {
+            .preorder-video-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .preorder-video-card.featured {
+                min-height: 24rem;
+            }
+
+            .preorder-video-card:not(.featured) {
+                min-height: 14rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .preorder-video-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .preorder-video-card,
+            .preorder-video-card.featured {
+                grid-column: auto;
+                min-height: 18rem;
+            }
         }
 
         .socials-bar {
@@ -1482,21 +1541,8 @@
                 flex: 1.1;
             }
             .drip-wall-grid {
-                grid-template-columns: 1fr;
-                gap: 1.6rem;
-            }
-            .drip-wall-stack {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1.6rem;
-            }
-            .drip-wall-card.featured {
-                min-height: 35rem;
-            }
-            .preorder-panel {
-                grid-template-columns: 1fr;
-            }
-            .preorder-placeholder-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 1.6rem;
             }
         }
 
@@ -1524,12 +1570,13 @@
             .drip-wall-header {
                 margin-bottom: 2.6rem;
             }
-            .drip-wall-stack {
+            .drip-wall-grid {
                 grid-template-columns: 1fr;
+                gap: 1.4rem;
             }
-            .drip-wall-card,
-            .drip-wall-card.featured {
-                min-height: 29rem;
+            .drip-wall-card {
+                aspect-ratio: 0.92;
+                min-height: 16rem;
             }
         }
 
@@ -1552,8 +1599,7 @@
             .showcase-section { padding: 3.1rem 5% 3.4rem; }
             .drip-wall { padding: 4rem 5% 4.3rem; }
             .drip-wall-subtext { font-size: 0.82rem; }
-            .drip-wall-card,
-            .drip-wall-card.featured {
+            .drip-wall-card {
                 min-height: 25rem;
             }
             .jersey-card {
@@ -1680,17 +1726,18 @@
             <p class="drip-wall-subtext">Real customers. Real kits. Real presence.</p>
         </div>
         <div class="drip-wall-grid">
-            <article class="drip-wall-card featured">
+            <article class="drip-wall-card">
                 <img class="drip-wall-media" src="assets/gallery/customer-1.webp" alt="DRIP XI customer wearing a custom football kit" loading="lazy">
             </article>
-            <div class="drip-wall-stack">
-                <article class="drip-wall-card">
-                    <video class="drip-wall-media" src="assets/gallery/customer-video.mp4" autoplay muted loop playsinline preload="metadata" aria-label="DRIP XI customer video"></video>
-                </article>
-                <article class="drip-wall-card">
-                    <img class="drip-wall-media" src="assets/gallery/customer-2.webp" alt="DRIP XI customer styled in a custom jersey" loading="lazy">
-                </article>
-            </div>
+            <article class="drip-wall-card">
+                <img class="drip-wall-media" src="assets/gallery/customer-2.webp" alt="DRIP XI customer styled in a custom jersey" loading="lazy">
+            </article>
+            <article class="drip-wall-card">
+                <video class="drip-wall-media" src="assets/gallery/customer-video.mp4" controls preload="metadata" playsinline muted aria-label="DRIP XI customer video"></video>
+            </article>
+            <article class="drip-wall-card">
+                <video class="drip-wall-media" src="assets/gallery/customer-video 2.mp4" controls preload="metadata" playsinline muted aria-label="DRIP XI customer video"></video>
+            </article>
         </div>
     </div>
 </section>
@@ -1883,33 +1930,36 @@
         <div class="preorder-panel">
             <div class="timeline-card">
                 <div class="timeline-label">Production Timeline</div>
-                <div class="timeline-value">6 Weeks</div>
+                <div class="timeline-value">6 WEEKS</div>
+                <p class="timeline-copy">Estimated turnaround from reservation to delivery.</p>
             </div>
             <div class="benefits-card">
                 <div class="benefits-label">Benefits</div>
                 <ul class="benefits-list">
-                    <li>Secure your size early</li>
+                    <li>Secure your size before release</li>
                     <li>Premium imported jerseys</li>
-                    <li>Limited availability</li>
-                    <li>Nationwide delivery</li>
+                    <li>Limited pre-order allocation</li>
+                    <li>Nationwide delivery from Port Harcourt</li>
                 </ul>
             </div>
         </div>
 
-        <div class="preorder-gallery" aria-labelledby="preorderGalleryTitle">
-            <div class="preorder-gallery-title" id="preorderGalleryTitle">Previous Pre-Order Deliveries</div>
-            <div class="preorder-placeholder-grid">
-                <div class="preorder-placeholder">
-                    <span class="placeholder-label">Delivery Placeholder</span>
-                </div>
-                <div class="preorder-placeholder">
-                    <span class="placeholder-label">Delivery Placeholder</span>
-                </div>
-                <div class="preorder-placeholder">
-                    <span class="placeholder-label">Delivery Placeholder</span>
-                </div>
-                <div class="preorder-placeholder">
-                    <span class="placeholder-label">Delivery Placeholder</span>
+        <div class="preorder-archive">
+            <div class="preorder-archive-header">
+                <div class="preorder-gallery-title" id="preorderGalleryTitle">PRE-ORDER ARCHIVE</div>
+                <p class="preorder-archive-subtitle">Real deliveries from previous customer pre-orders. Every jersey is sourced, customized and quality checked before dispatch.</p>
+            </div>
+            <div class="preorder-gallery" aria-labelledby="preorderGalleryTitle">
+                <div class="preorder-video-grid">
+                    <article class="preorder-video-card featured">
+                        <video class="preorder-video-media" src="assets/gallery/preorder-video-1.mp4" controls preload="metadata" playsinline aria-label="Fulfilled pre-order delivery video"></video>
+                    </article>
+                    <article class="preorder-video-card">
+                        <video class="preorder-video-media" src="assets/gallery/preorder-video-2.mp4" controls preload="metadata" playsinline aria-label="Fulfilled pre-order delivery video"></video>
+                    </article>
+                    <article class="preorder-video-card">
+                        <video class="preorder-video-media" src="assets/gallery/preorder-video-3.mp4" controls preload="metadata" playsinline aria-label="Fulfilled pre-order delivery video"></video>
+                    </article>
                 </div>
             </div>
         </div>
