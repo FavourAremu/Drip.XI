@@ -5,27 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Drip XI | Order Your Jersey</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Satoshi:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Satoshi:wght@400;500;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-       :root {
-    --gold: #D4A017;
-    --gold-soft: rgba(212,160,23,0.16);
-    --gold-faint: rgba(212,160,23,0.08);
-    --dark: #000000;
-    --panel: #1A1A1A;
-    --card: #1A1A1A;
-    --border: rgba(212,160,23,0.22);
-    --text: #FFFFFF;
-    --muted: rgba(255,255,255,0.64);
-    --green: #25D366;
-    --font-display: 'Satoshi', sans-serif;
-    --font-body: 'Inter', sans-serif;
-    --transition: 0.3s ease;
-}
+        :root {
+            --gold: #D4A017;
+            --gold-soft: rgba(212,160,23,0.16);
+            --gold-faint: rgba(212,160,23,0.08);
+            --dark: #000000;
+            --panel: #1A1A1A;
+            --card: #1A1A1A;
+            --border: rgba(212,160,23,0.22);
+            --text: #FFFFFF;
+            --muted: rgba(255,255,255,0.64);
+            --green: #25D366;
+            --font-display: 'Satoshi', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-accent: 'Satoshi', 'Inter', sans-serif;
+            --transition: 0.3s ease;
+        }
 
         html { scroll-behavior: smooth; }
 
@@ -679,19 +680,22 @@
             background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
             box-shadow: 0 20px 54px rgba(0, 0, 0, 0.28);
             border: 1px solid rgba(255,255,255,0.06);
+            position: relative;
+            aspect-ratio: 1.2;
         }
 
         .customizer-visual__frame img {
             display: block;
             width: 100%;
             height: 100%;
-            max-height: 460px;
             object-fit: cover;
+            transition: transform 0.3s ease;
         }
 
         .customizer-view-toggle {
             display: inline-flex;
             gap: 0.55rem;
+            justify-content: center;
         }
 
         .view-toggle {
@@ -706,6 +710,8 @@
             letter-spacing: 0.12em;
             text-transform: uppercase;
             cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 44px;
         }
 
         .view-toggle.active {
@@ -714,13 +720,18 @@
             border-color: #D4A017;
         }
 
+        .view-toggle:hover {
+            border-color: var(--gold);
+        }
+
         .customizer-hint {
             margin: 0;
-            color: rgba(255,255,255,0.7);
+            color: rgba(255,255,255,0.5);
             font-family: 'Inter', sans-serif;
-            font-size: 0.82rem;
+            font-size: 0.7rem;
             letter-spacing: 0.08em;
             text-transform: uppercase;
+            text-align: center;
         }
 
         .customizer-panel {
@@ -778,10 +789,36 @@
             color: #FFFFFF;
             font-family: 'Inter', sans-serif;
             font-size: 0.95rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .customizer-field input[type="text"]:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(212,160,23,0.1);
+            outline: none;
         }
 
         .customizer-field input[type="file"] {
             padding: 0.8rem 0.9rem;
+            cursor: pointer;
+        }
+
+        .customizer-field input[type="file"]::file-selector-button {
+            background: var(--gold);
+            color: #000000;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            margin-right: 0.5rem;
+        }
+
+        .file-name {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
         }
 
         .color-swatches {
@@ -797,11 +834,18 @@
             border: 2px solid rgba(255,255,255,0.2);
             background: var(--swatch-color);
             cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 32px;
+            min-width: 32px;
+        }
+
+        .swatch:hover {
+            transform: scale(1.1);
         }
 
         .swatch.active {
             border-color: #D4A017;
-            box-shadow: 0 0 0 3px rgba(212,160,23,0.2);
+            box-shadow: 0 0 0 3px rgba(212,160,23,0.3);
         }
 
         .font-row {
@@ -822,6 +866,12 @@
             letter-spacing: 0.08em;
             text-transform: uppercase;
             cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 44px;
+        }
+
+        .font-pill:hover {
+            border-color: rgba(255,255,255,0.3);
         }
 
         .font-pill.active {
@@ -851,6 +901,9 @@
             letter-spacing: 0.12em;
             text-transform: uppercase;
             cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            min-height: 48px;
         }
 
         .customizer-btn--ghost {
@@ -859,9 +912,19 @@
             border: 1px solid rgba(255,255,255,0.2);
         }
 
+        .customizer-btn--ghost:hover {
+            border-color: var(--gold);
+            background: rgba(212,160,23,0.1);
+        }
+
         .customizer-btn--solid {
             background: #D4A017;
             color: #000000;
+        }
+
+        .customizer-btn--solid:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(212,160,23,0.24);
         }
 
         .why-section {
@@ -1427,6 +1490,8 @@
             cursor: pointer;
             position: relative;
             overflow: hidden;
+            transition: all 0.3s ease;
+            min-height: 60px;
         }
 
         .submit-btn:hover {
@@ -1672,6 +1737,26 @@
             filter: saturate(0.92) contrast(1.1) brightness(0.98);
         }
 
+        .video-fallback {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1a1a1a;
+            color: var(--muted);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .video-fallback svg {
+            width: 2.5rem;
+            height: 2.5rem;
+            color: var(--gold);
+        }
+
         @media (max-width: 860px) {
             .preorder-video-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1765,6 +1850,7 @@
             max-width: 180px;
             position: relative;
             overflow: hidden;
+            min-height: 48px;
         }
 
         .connect-btn svg {
@@ -1897,6 +1983,8 @@
             border-radius: 999px;
             color: var(--text);
             transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+            min-height: 34px;
+            min-width: 34px;
         }
 
         .footer-socials a:hover {
@@ -1937,18 +2025,11 @@
             color: var(--gold);
         }
 
-        .footer-newsletter {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
         .footer-newsletter p {
-            margin: 0;
             color: rgba(244,240,232,0.72);
             font-family: var(--font-body);
-            font-size: 0.9rem;
-            line-height: 1.6;
+            font-size: 0.92rem;
+            margin-bottom: 0.8rem;
         }
 
         .footer-form {
@@ -1968,6 +2049,7 @@
             font-family: var(--font-body);
             font-size: 0.92rem;
             outline: none;
+            min-height: 48px;
         }
 
         .footer-form input:focus {
@@ -1988,6 +2070,7 @@
             text-transform: uppercase;
             cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-height: 48px;
         }
 
         .footer-form button:hover {
@@ -2018,15 +2101,38 @@
             margin-right: 8px;
         }
 
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            background: #1a1a1a;
+            border: 1px solid rgba(212,160,23,0.3);
+            color: #FFFFFF;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+            transform: translateY(120%);
+            opacity: 0;
+            transition: all 0.5s ease;
+            z-index: 999;
+            max-width: 90vw;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            border-color: var(--green);
+            background: rgba(37,211,102,0.12);
+        }
+
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(14px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes grainMove {
-            0% { transform: translate3d(0,0,0); }
-            50% { transform: translate3d(-1.5%,1%,0); }
-            100% { transform: translate3d(0,0,0); }
         }
 
         @keyframes float {
@@ -2097,6 +2203,21 @@
                 grid-template-columns: repeat(2, minmax(0, 1fr));
                 gap: 1.6rem;
             }
+            .customizer-inner {
+                grid-template-columns: 1fr;
+            }
+            .customizer-visual__frame {
+                aspect-ratio: 1.4;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .why-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
         }
 
         @media (max-width: 768px) {
@@ -2130,18 +2251,29 @@
                 margin-bottom: 2.6rem;
             }
             .drip-wall-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
                 gap: 1.4rem;
             }
             .drip-wall-card {
-                aspect-ratio: 0.92;
+                aspect-ratio: 0.82;
                 min-height: 16rem;
             }
-        }
-
-        @media (max-width: 900px) {
-            .footer-grid {
+            .customizer-inner {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .customizer-panel {
+                padding: 1.2rem;
+            }
+            .customizer-panel h2 {
+                font-size: 1.8rem;
+            }
+            .why-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 1rem;
+            }
+            .why-item {
+                padding: 1rem 0;
             }
         }
 
@@ -2199,23 +2331,19 @@
             .customizer-inner { grid-template-columns: 1fr; gap: 1.3rem; }
             .customizer-panel { padding: 1.2rem; }
             .customizer-panel h2 { font-size: 1.8rem; }
+            .customizer-visual__frame {
+                aspect-ratio: 1.1;
+            }
             .why-section { padding: 4.2rem 5% 4.6rem; }
-            .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-            .why-item { padding: 1rem 0; }
+            .why-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+            .why-item { padding: 0.8rem 0; }
             .drip-wall { padding: 4rem 5% 4.3rem; }
             .drip-wall-subtext { font-size: 0.82rem; }
-            .drip-wall-card {
-                min-height: 25rem;
-            }
-            .jersey-card {
-                aspect-ratio: 0.75;
-            }
-            .sport-name {
-                font-size: 2rem;
-            }
-            .jersey-card-copy {
-                padding: 1.65rem 1.35rem 1.9rem;
-            }
+            .drip-wall-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+            .drip-wall-card { min-height: 18rem; aspect-ratio: 0.75; }
+            .jersey-card { aspect-ratio: 0.75; }
+            .sport-name { font-size: 2rem; }
+            .jersey-card-copy { padding: 1.65rem 1.35rem 1.9rem; }
             .order-section { padding: 4.2rem 5% 4.6rem; }
             #orderForm { padding: 1rem; }
             .form-group { margin-bottom: 1.45rem; }
@@ -2241,6 +2369,22 @@
             .benefits-list { grid-template-columns: 1fr; }
             .preorder-placeholder-grid { grid-template-columns: 1fr; gap: 1rem; }
             .preorder-placeholder { min-height: 13rem; }
+            .drip-wall-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .drip-wall-grid {
+                grid-template-columns: 1fr;
+            }
+            .drip-wall-card {
+                aspect-ratio: 0.82;
+                min-height: 20rem;
+            }
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -2274,7 +2418,7 @@
                 <path d="M3 4h2l2.4 10.2a1 1 0 0 0 1 .8h8.7a1 1 0 0 0 1-.8L17 8H7"></path>
             </svg>
         </a>
-        <a href="#orderForm" class="nav-cta">Start Designing</a>
+        <a href="#order-now" class="nav-cta">Start Designing</a>
     </div>
 
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobileNavPanel" aria-label="Open navigation">
@@ -2327,7 +2471,7 @@
     </div>
     <div class="showcase-grid">
         <article class="jersey-card football">
-            <img src="assets/jerseys/football.webp" alt="Football collection jersey" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=600&h=800&q=80" alt="Football collection jersey" loading="lazy" onerror="this.src='https://via.placeholder.com/600x800/1a1a1a/D4A017?text=Football'">
             <div class="jersey-card-copy">
                 <h2 class="sport-name">Football</h2>
                 <p class="price">Starting at ₦30,000</p>
@@ -2335,7 +2479,7 @@
             <a href="#customize" class="jersey-card-cta">Customize This</a>
         </article>
         <article class="jersey-card basketball">
-            <img src="assets/jerseys/basketball.webp" alt="Basketball collection jersey" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=600&h=800&q=80" alt="Basketball collection jersey" loading="lazy" onerror="this.src='https://via.placeholder.com/600x800/1a1a1a/D4A017?text=Basketball'">
             <div class="jersey-card-copy">
                 <h2 class="sport-name">Basketball</h2>
                 <p class="price">Starting at ₦30,000</p>
@@ -2343,7 +2487,7 @@
             <a href="#customize" class="jersey-card-cta">Customize This</a>
         </article>
         <article class="jersey-card baseball">
-            <img src="assets/jerseys/baseball.webp" alt="Baseball collection jersey" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1550330861-3a6df3b49d79?auto=format&fit=crop&w=600&h=800&q=80" alt="Baseball collection jersey" loading="lazy" onerror="this.src='https://via.placeholder.com/600x800/1a1a1a/D4A017?text=Baseball'">
             <div class="jersey-card-copy">
                 <h2 class="sport-name">Baseball</h2>
                 <p class="price">Starting at ₦30,000</p>
@@ -2356,14 +2500,14 @@
 <section class="customizer-section" id="customize" aria-labelledby="customizerTitle">
     <div class="customizer-inner">
         <div class="customizer-visual">
-            <div class="customizer-visual__frame">
-                <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=900&q=80" alt="Premium custom jersey mockup" loading="lazy">
+            <div class="customizer-visual__frame" id="jerseyPreview">
+                <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=900&q=80" alt="Premium custom jersey mockup" loading="lazy" id="previewImage">
             </div>
             <div class="customizer-view-toggle" role="group" aria-label="Jersey view selector">
-                <button type="button" class="view-toggle active">Front</button>
-                <button type="button" class="view-toggle">Back</button>
+                <button type="button" class="view-toggle active" data-view="front">Front</button>
+                <button type="button" class="view-toggle" data-view="back">Back</button>
             </div>
-            <p class="customizer-hint">Drag to rotate</p>
+            <p class="customizer-hint">Click to preview different views</p>
         </div>
 
         <div class="customizer-panel" aria-label="Customize your jersey">
@@ -2373,40 +2517,43 @@
             <label class="customizer-field">
                 <span>Jersey Color</span>
                 <div class="color-swatches" aria-label="Jersey color options">
-                    <button type="button" class="swatch active" style="--swatch-color:#000000" aria-label="Black"></button>
-                    <button type="button" class="swatch" style="--swatch-color:#1A1A1A" aria-label="Soft black"></button>
-                    <button type="button" class="swatch" style="--swatch-color:#D4A017" aria-label="Gold"></button>
-                    <button type="button" class="swatch" style="--swatch-color:#FFFFFF" aria-label="White"></button>
+                    <button type="button" class="swatch active" style="--swatch-color:#000000" data-color="#000000" aria-label="Black"></button>
+                    <button type="button" class="swatch" style="--swatch-color:#1A1A1A" data-color="#1A1A1A" aria-label="Soft black"></button>
+                    <button type="button" class="swatch" style="--swatch-color:#D4A017" data-color="#D4A017" aria-label="Gold"></button>
+                    <button type="button" class="swatch" style="--swatch-color:#FFFFFF" data-color="#FFFFFF" aria-label="White"></button>
+                    <button type="button" class="swatch" style="--swatch-color:#8B0000" data-color="#8B0000" aria-label="Maroon"></button>
+                    <button type="button" class="swatch" style="--swatch-color:#1a237e" data-color="#1a237e" aria-label="Navy"></button>
                 </div>
             </label>
 
             <label class="customizer-field">
                 <span>Your Name</span>
-                <input type="text" placeholder="e.g. DRIP KING">
+                <input type="text" placeholder="e.g. DRIP KING" id="customizerName">
             </label>
 
             <label class="customizer-field">
                 <span>Your Number</span>
-                <input type="text" placeholder="e.g. 11">
+                <input type="text" placeholder="e.g. 11" id="customizerNumber" inputmode="numeric" pattern="[0-9]{1,3}">
             </label>
 
             <label class="customizer-field">
                 <span>Upload Your Logo</span>
-                <input type="file" accept="image/*">
+                <input type="file" accept="image/*" id="logoUpload">
+                <div class="file-name" id="fileName"></div>
             </label>
 
             <div class="customizer-field">
                 <span>Choose Font Style</span>
                 <div class="font-row">
-                    <button type="button" class="font-pill active">Satoshi</button>
-                    <button type="button" class="font-pill">Inter</button>
-                    <button type="button" class="font-pill">Bebas</button>
+                    <button type="button" class="font-pill active" data-font="Satoshi">Satoshi</button>
+                    <button type="button" class="font-pill" data-font="Inter">Inter</button>
+                    <button type="button" class="font-pill" data-font="Bebas">Bebas</button>
                 </div>
             </div>
 
             <div class="customizer-actions">
-                <button type="button" class="customizer-btn customizer-btn--ghost">Save My Design</button>
-                <a href="#orderForm" class="customizer-btn customizer-btn--solid">Order Now</a>
+                <button type="button" class="customizer-btn customizer-btn--ghost" id="saveDesignBtn">Save My Design</button>
+                <a href="#order-now" class="customizer-btn customizer-btn--solid">Order Now</a>
             </div>
         </div>
     </div>
@@ -2473,42 +2620,42 @@
         </div>
         <div class="drip-wall-grid">
             <article class="drip-wall-card">
-                <img class="drip-wall-media" src="assets/gallery/customer-1.webp" alt="DRIP XI customer wearing a custom football kit" loading="lazy">
+                <img class="drip-wall-media" src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?auto=format&fit=crop&w=600&h=800&q=80" alt="DRIP XI customer wearing a custom football kit" loading="lazy" onerror="this.style.display='none'">
                 <div class="drip-wall-overlay">
                     <span class="drip-wall-name">Adewale K.</span>
                     <span class="drip-wall-sport">Football</span>
                 </div>
             </article>
             <article class="drip-wall-card">
-                <img class="drip-wall-media" src="assets/gallery/customer-2.webp" alt="DRIP XI customer styled in a custom jersey" loading="lazy">
+                <img class="drip-wall-media" src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=600&h=800&q=80" alt="DRIP XI customer styled in a custom jersey" loading="lazy" onerror="this.style.display='none'">
                 <div class="drip-wall-overlay">
                     <span class="drip-wall-name">Tolu M.</span>
                     <span class="drip-wall-sport">Basketball</span>
                 </div>
             </article>
             <article class="drip-wall-card">
-                <img class="drip-wall-media" src="assets/gallery/customer-3.webp" alt="DRIP XI customer in a premium custom jersey" loading="lazy">
+                <img class="drip-wall-media" src="https://images.unsplash.com/photo-1550330861-3a6df3b49d79?auto=format&fit=crop&w=600&h=800&q=80" alt="DRIP XI customer in a premium custom jersey" loading="lazy" onerror="this.style.display='none'">
                 <div class="drip-wall-overlay">
                     <span class="drip-wall-name">Musa D.</span>
                     <span class="drip-wall-sport">Baseball</span>
                 </div>
             </article>
             <article class="drip-wall-card">
-                <img class="drip-wall-media" src="assets/gallery/customer-4.webp" alt="DRIP XI customer showing off a custom kit" loading="lazy">
+                <img class="drip-wall-media" src="https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=600&h=800&q=80" alt="DRIP XI customer showing off a custom kit" loading="lazy" onerror="this.style.display='none'">
                 <div class="drip-wall-overlay">
                     <span class="drip-wall-name">Kemi A.</span>
                     <span class="drip-wall-sport">Training</span>
                 </div>
             </article>
             <article class="drip-wall-card">
-                <img class="drip-wall-media" src="assets/gallery/customer-5.webp" alt="DRIP XI customer in a bold custom jersey" loading="lazy">
+                <img class="drip-wall-media" src="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=600&h=800&q=80" alt="DRIP XI customer in a bold custom jersey" loading="lazy" onerror="this.style.display='none'">
                 <div class="drip-wall-overlay">
                     <span class="drip-wall-name">Bayo R.</span>
                     <span class="drip-wall-sport">Football</span>
                 </div>
             </article>
             <article class="drip-wall-card">
-                <img class="drip-wall-media" src="assets/gallery/customer-6.webp" alt="DRIP XI customer in a custom sports outfit" loading="lazy">
+                <img class="drip-wall-media" src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=600&h=800&q=80" alt="DRIP XI customer in a custom sports outfit" loading="lazy" onerror="this.style.display='none'">
                 <div class="drip-wall-overlay">
                     <span class="drip-wall-name">Seyi O.</span>
                     <span class="drip-wall-sport">Lifestyle</span>
@@ -2518,7 +2665,7 @@
     </div>
 </section>
 
-<section class="order-section" id="customize">
+<section class="order-section" id="order-now">
     <div class="trust-strip" aria-label="Order trust signals">
         <div class="trust-item">
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3l7 3v5c0 4.6-2.8 8-7 10-4.2-2-7-5.4-7-10V6l7-3z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9 13l2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -2541,7 +2688,7 @@
     <div class="section-sub">FILL IN YOUR DETAILS · WE'LL HANDLE THE REST</div>
 
     <div class="success-box" id="successBox" aria-live="polite">
-        <h3>ORDER CONFIRMED</h3>
+        <h3>🎉 ORDER CONFIRMED</h3>
         <p>
             Payment received and your order is locked in.<br>
             Total amount: <span class="success-amount" id="successAmount">₦30,000</span><br>
@@ -2551,7 +2698,7 @@
         </p>
     </div>
 
-    <form id="orderForm">
+    <form id="orderForm" novalidate>
         <div class="form-row">
             <div class="form-group">
                 <label for="fullName">FULL NAME *</label>
@@ -2559,7 +2706,7 @@
             </div>
             <div class="form-group">
                 <label for="phone">PHONE NUMBER *</label>
-                <input type="tel" id="phone" placeholder="e.g. 08012345678" autocomplete="tel" inputmode="tel" pattern="[0-9()+\s-]{7,20}" required>
+                <input type="tel" id="phone" placeholder="e.g. 08012345678" autocomplete="tel" inputmode="tel" pattern="(0[789][01]\d{8})|(\+?234[789][01]\d{8})" required>
             </div>
         </div>
 
@@ -2582,21 +2729,24 @@
             <label for="jerseyVersion">JERSEY VERSION *</label>
             <select id="jerseyVersion" required>
                 <option value="" disabled selected>Select Jersey Version</option>
-                <option>Home</option>
-                <option>Away</option>
-                <option>Third Kit</option>
-                <option>Retro</option>
-                <option>Player Edition</option>
-                <option>Fan Version</option>
+                <option value="Home">Home</option>
+                <option value="Away">Away</option>
+                <option value="Third Kit">Third Kit</option>
+                <option value="Retro">Retro</option>
+                <option value="Player Edition">Player Edition</option>
+                <option value="Fan Version">Fan Version</option>
             </select>
         </div>
 
         <div class="form-group">
             <label for="size">SIZE *</label>
             <select id="size" required>
-                <option selected>Large</option>
-                <option>2XL</option>
-                <option>3XL</option>
+                <option value="Large" selected>Large</option>
+                <option value="2XL">2XL</option>
+                <option value="3XL">3XL</option>
+                <option value="Small">Small</option>
+                <option value="Medium">Medium</option>
+                <option value="X-Large">X-Large</option>
             </select>
         </div>
 
@@ -2621,7 +2771,7 @@
 
         <div class="form-group">
             <label for="quantity">QUANTITY *</label>
-            <input type="number" id="quantity" min="1" max="100" value="1" required>
+            <input type="number" id="quantity" min="1" max="100" value="1" step="1" required>
         </div>
 
         <div class="form-group">
@@ -2728,13 +2878,31 @@
             <div class="preorder-gallery" aria-labelledby="preorderGalleryTitle">
                 <div class="preorder-video-grid">
                     <article class="preorder-video-card featured">
-                        <video class="preorder-video-media" src="assets/gallery/preorder-video-1.mp4" controls preload="metadata" playsinline aria-label="Fulfilled pre-order delivery video"></video>
+                        <div class="video-fallback">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 8l6 4-6 4V8z"/></svg>
+                            <span>Pre-order delivery video</span>
+                        </div>
+                        <video class="preorder-video-media" preload="metadata" playsinline aria-label="Fulfilled pre-order delivery video" controls>
+                            <source src="#" type="video/mp4">
+                        </video>
                     </article>
                     <article class="preorder-video-card">
-                        <video class="preorder-video-media" src="assets/gallery/preorder-video-2.mp4" controls preload="metadata" playsinline aria-label="Fulfilled pre-order delivery video"></video>
+                        <div class="video-fallback">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 8l6 4-6 4V8z"/></svg>
+                            <span>Pre-order delivery video</span>
+                        </div>
+                        <video class="preorder-video-media" preload="metadata" playsinline aria-label="Fulfilled pre-order delivery video" controls>
+                            <source src="#" type="video/mp4">
+                        </video>
                     </article>
                     <article class="preorder-video-card">
-                        <video class="preorder-video-media" src="assets/gallery/preorder-video-3.mp4" controls preload="metadata" playsinline aria-label="Fulfilled pre-order delivery video"></video>
+                        <div class="video-fallback">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 8l6 4-6 4V8z"/></svg>
+                            <span>Pre-order delivery video</span>
+                        </div>
+                        <video class="preorder-video-media" preload="metadata" playsinline aria-label="Fulfilled pre-order delivery video" controls>
+                            <source src="#" type="video/mp4">
+                        </video>
                     </article>
                 </div>
             </div>
@@ -2747,7 +2915,7 @@
         <div class="socials-title">CONNECT WITH US</div>
         <div class="socials-sub">FOLLOW • CHAT • COLLABORATE</div>
         <div class="connect-buttons" aria-label="Connect with DRIP XI">
-            <a href="https://wa.me/2347069533486" target="_blank" rel="noopener noreferrer" class="connect-btn" aria-label="Connect on WhatsApp">
+            <a href="https://wa.me/2347069533486?text=Hi%20DRIP%20XI%2C%20I%20want%20to%20order%20a%20custom%20jersey" target="_blank" rel="noopener noreferrer" class="connect-btn" aria-label="Connect on WhatsApp">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
                     <path d="M4.8 19.2l1-3.7A7.5 7.5 0 1 1 9 18.7l-4.2.5z" stroke-linejoin="round"/>
                     <path d="M9.5 8.4c.2-.4.4-.4.7-.4h.5c.2 0 .4.1.5.4l.7 1.5c.1.3.1.5-.1.7l-.4.5c.7 1.1 1.5 1.9 2.7 2.5l.5-.6c.2-.2.4-.3.7-.2l1.6.7c.3.1.4.3.4.6v.4c0 .4-.2.7-.5.9-.8.4-2.3.1-4-.9-1.9-1.1-3.1-2.2-3.9-4.1" stroke-linecap="round" stroke-linejoin="round"/>
@@ -2821,8 +2989,8 @@
             <div class="footer-column footer-newsletter">
                 <h4>Newsletter</h4>
                 <p>Get early access to new drops.</p>
-                <form class="footer-form">
-                    <input type="email" placeholder="Email address" aria-label="Email address">
+                <form class="footer-form" id="newsletterForm">
+                    <input type="email" placeholder="Email address" aria-label="Email address" id="newsletterEmail" required>
                     <button type="submit">Join</button>
                 </form>
             </div>
@@ -2834,7 +3002,13 @@
     </div>
 </footer>
 
+<!-- Toast Notification -->
+<div class="toast" id="toast"></div>
+
 <script>
+    // ============================================================
+    // 1. NAVIGATION
+    // ============================================================
     const siteHeader = document.getElementById("siteHeader");
     const menuToggle = document.querySelector(".menu-toggle");
     const siteNav = document.getElementById("siteNav");
@@ -2872,7 +3046,6 @@
     });
 
     mobileBackdrop.addEventListener("click", closeNavigation);
-
     [...siteNav.querySelectorAll("a"), ...mobileNavPanel.querySelectorAll("a")].forEach((link) => {
         link.addEventListener("click", closeNavigation);
     });
@@ -2883,6 +3056,153 @@
         }
     });
 
+    // ============================================================
+    // 2. TOAST NOTIFICATION
+    // ============================================================
+    function showToast(message, type = 'info') {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.className = 'toast';
+        if (type === 'success') toast.classList.add('success');
+        toast.classList.add('show');
+        clearTimeout(toast._timeout);
+        toast._timeout = setTimeout(() => {
+            toast.classList.remove('show');
+        }, 4000);
+    }
+
+    // ============================================================
+    // 3. CUSTOMIZER INTERACTIVITY
+    // ============================================================
+    // View toggle
+    const viewToggles = document.querySelectorAll('.view-toggle');
+    const previewImage = document.getElementById('previewImage');
+    const frontImage = 'https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=900&q=80';
+    const backImage = 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=900&q=80';
+
+    viewToggles.forEach(btn => {
+        btn.addEventListener('click', function() {
+            viewToggles.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            const view = this.dataset.view;
+            previewImage.src = view === 'front' ? frontImage : backImage;
+        });
+    });
+
+    // Color swatches
+    const swatches = document.querySelectorAll('.swatch');
+    swatches.forEach(swatch => {
+        swatch.addEventListener('click', function() {
+            swatches.forEach(s => s.classList.remove('active'));
+            this.classList.add('active');
+            const color = this.dataset.color;
+            // Visual feedback - change border of preview frame
+            const frame = document.querySelector('.customizer-visual__frame');
+            frame.style.borderColor = color === '#FFFFFF' ? 'rgba(255,255,255,0.3)' : color;
+            frame.style.boxShadow = `0 20px 54px rgba(0,0,0,0.28), 0 0 0 2px ${color}22`;
+        });
+    });
+
+    // Font pills
+    const fontPills = document.querySelectorAll('.font-pill');
+    fontPills.forEach(pill => {
+        pill.addEventListener('click', function() {
+            fontPills.forEach(p => p.classList.remove('active'));
+            this.classList.add('active');
+            const font = this.dataset.font;
+            // Apply font to preview text (simulated)
+            document.querySelector('.customizer-panel h2').style.fontFamily = font + ', sans-serif';
+        });
+    });
+
+    // File upload
+    const logoUpload = document.getElementById('logoUpload');
+    const fileName = document.getElementById('fileName');
+    logoUpload.addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+            fileName.textContent = '📎 ' + this.files[0].name;
+            showToast('Logo uploaded: ' + this.files[0].name, 'success');
+        } else {
+            fileName.textContent = '';
+        }
+    });
+
+    // Customizer name/number - live preview
+    const customizerName = document.getElementById('customizerName');
+    const customizerNumber = document.getElementById('customizerNumber');
+    customizerName.addEventListener('input', function() {
+        // Simulate name on jersey - just visual feedback
+        if (this.value.length > 0) {
+            document.querySelector('.customizer-panel h2').style.opacity = '0.7';
+            setTimeout(() => {
+                document.querySelector('.customizer-panel h2').style.opacity = '1';
+            }, 200);
+        }
+    });
+
+    // Save Design button
+    document.getElementById('saveDesignBtn').addEventListener('click', function() {
+        const name = customizerName.value || 'Unnamed';
+        const number = customizerNumber.value || 'No number';
+        const color = document.querySelector('.swatch.active')?.dataset?.color || 'Black';
+        const font = document.querySelector('.font-pill.active')?.dataset?.font || 'Satoshi';
+
+        const designData = {
+            name: name,
+            number: number,
+            color: color,
+            font: font,
+            savedAt: new Date().toISOString()
+        };
+
+        try {
+            localStorage.setItem('dripxi_design', JSON.stringify(designData));
+            showToast('✅ Design saved successfully!', 'success');
+        } catch (e) {
+            showToast('Could not save design. Please try again.', 'info');
+        }
+    });
+
+    // Load saved design on page load
+    window.addEventListener('DOMContentLoaded', function() {
+        try {
+            const saved = localStorage.getItem('dripxi_design');
+            if (saved) {
+                const data = JSON.parse(saved);
+                if (data.name && document.getElementById('customizerName')) {
+                    document.getElementById('customizerName').value = data.name;
+                }
+                if (data.number && document.getElementById('customizerNumber')) {
+                    document.getElementById('customizerNumber').value = data.number;
+                }
+                // Highlight saved color
+                if (data.color) {
+                    swatches.forEach(s => {
+                        if (s.dataset.color === data.color) {
+                            s.click();
+                        }
+                    });
+                }
+                // Highlight saved font
+                if (data.font) {
+                    fontPills.forEach(p => {
+                        if (p.dataset.font === data.font) {
+                            p.click();
+                        }
+                    });
+                }
+                if (data.name || data.number) {
+                    showToast('🔄 Loaded your saved design', 'info');
+                }
+            }
+        } catch (e) {
+            // Silent fail
+        }
+    });
+
+    // ============================================================
+    // 4. ORDER FORM
+    // ============================================================
     const EMAILJS_PUBLIC_KEY = "lmg0gZVXEITGHCSbS";
     const EMAILJS_SERVICE_ID = "service_9u6ulhs";
     const EMAILJS_TEMPLATE_ID = "template_5p2of5c";
@@ -2899,11 +3219,9 @@
 
     function initializeEmailJS() {
         const emailjs = getEmailJS();
-
         if (!emailjs || typeof emailjs.init !== "function") {
             return false;
         }
-
         if (!emailJSInitialized) {
             try {
                 emailjs.init(EMAILJS_PUBLIC_KEY);
@@ -2913,7 +3231,6 @@
                 emailJSInitialized = false;
             }
         }
-
         return emailJSInitialized;
     }
 
@@ -2924,7 +3241,6 @@
                 reject(new Error("EmailJS request timed out"));
             }, timeoutMs);
         });
-
         return Promise.race([promise, timeout]).finally(() => {
             window.clearTimeout(timeoutId);
         });
@@ -2934,44 +3250,21 @@
 
     const jerseyData = {
         Football: [
-            "Real Madrid",
-            "Barcelona",
-            "Manchester United",
-            "Manchester City",
-            "Arsenal",
-            "Chelsea",
-            "Liverpool",
-            "PSG",
-            "Bayern Munich",
-            "Juventus",
-            "AC Milan",
-            "Inter Milan",
-            "Atletico Madrid",
-            "Borussia Dortmund",
-            "Napoli",
-            "Ajax",
+            "Real Madrid", "Barcelona", "Manchester United", "Manchester City",
+            "Arsenal", "Chelsea", "Liverpool", "PSG", "Bayern Munich",
+            "Juventus", "AC Milan", "Inter Milan", "Atletico Madrid",
+            "Borussia Dortmund", "Napoli", "Ajax"
         ],
         Basketball: [
-            "Los Angeles Lakers",
-            "Chicago Bulls",
-            "Boston Celtics",
-            "Golden State Warriors",
-            "Miami Heat",
-            "Brooklyn Nets",
-            "Phoenix Suns",
-            "New York Knicks",
-            "Dallas Mavericks",
-            "Milwaukee Bucks",
+            "Los Angeles Lakers", "Chicago Bulls", "Boston Celtics",
+            "Golden State Warriors", "Miami Heat", "Brooklyn Nets",
+            "Phoenix Suns", "New York Knicks", "Dallas Mavericks",
+            "Milwaukee Bucks"
         ],
         Baseball: [
-            "New York Yankees",
-            "Los Angeles Dodgers",
-            "Boston Red Sox",
-            "Chicago Cubs",
-            "New York Mets",
-            "Atlanta Braves",
-            "San Francisco Giants",
-            "Philadelphia Phillies",
+            "New York Yankees", "Los Angeles Dodgers", "Boston Red Sox",
+            "Chicago Cubs", "New York Mets", "Atlanta Braves",
+            "San Francisco Giants", "Philadelphia Phillies"
         ],
     };
 
@@ -3004,6 +3297,7 @@
             });
         } else {
             teamSection.hidden = true;
+            teamClubSelect.innerHTML = '<option value="" disabled selected>First select jersey type above</option>';
         }
         updateSummary();
     }
@@ -3036,6 +3330,64 @@
     sizeSelect.addEventListener("change", updateSummary);
     quantityInput.addEventListener("change", updateSummary);
 
+    // Form persistence with localStorage
+    function saveFormData() {
+        try {
+            const data = {
+                fullName: document.getElementById('fullName').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                jerseyType: jerseyTypeSelect.value,
+                jerseyVersion: jerseyVersionSelect.value,
+                size: sizeSelect.value,
+                customName: document.getElementById('customName').value,
+                jerseyNumber: document.getElementById('jerseyNumber').value,
+                quantity: quantityInput.value,
+                notes: document.getElementById('notes').value,
+                team: teamClubSelect.value
+            };
+            localStorage.setItem('dripxi_order_form', JSON.stringify(data));
+        } catch (e) {}
+    }
+
+    function loadFormData() {
+        try {
+            const saved = localStorage.getItem('dripxi_order_form');
+            if (saved) {
+                const data = JSON.parse(saved);
+                if (data.fullName) document.getElementById('fullName').value = data.fullName;
+                if (data.phone) document.getElementById('phone').value = data.phone;
+                if (data.email) document.getElementById('email').value = data.email;
+                if (data.jerseyType) {
+                    jerseyTypeSelect.value = data.jerseyType;
+                    updateTeamOptions();
+                }
+                if (data.jerseyVersion) jerseyVersionSelect.value = data.jerseyVersion;
+                if (data.size) sizeSelect.value = data.size;
+                if (data.customName) document.getElementById('customName').value = data.customName;
+                if (data.jerseyNumber) document.getElementById('jerseyNumber').value = data.jerseyNumber;
+                if (data.quantity) quantityInput.value = data.quantity;
+                if (data.notes) document.getElementById('notes').value = data.notes;
+                if (data.team && teamClubSelect.querySelector(`option[value="${data.team}"]`)) {
+                    teamClubSelect.value = data.team;
+                }
+                updateSummary();
+            }
+        } catch (e) {}
+    }
+
+    // Auto-save form data
+    document.querySelectorAll('#orderForm input, #orderForm select, #orderForm textarea').forEach(field => {
+        field.addEventListener('change', saveFormData);
+        field.addEventListener('input', saveFormData);
+    });
+
+    // Load saved form data
+    loadFormData();
+
+    // ============================================================
+    // 5. FORM SUBMISSION
+    // ============================================================
     orderForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -3043,21 +3395,28 @@
             return;
         }
 
-        const fullName = document.getElementById("fullName").value;
-        const phone = document.getElementById("phone").value;
-        const email = document.getElementById("email").value;
+        const fullName = document.getElementById("fullName").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const email = document.getElementById("email").value.trim();
         const jerseyType = jerseyTypeSelect.value;
         const team = teamClubSelect.value;
         const jerseyVersion = jerseyVersionSelect.value;
         const size = sizeSelect.value;
-        const customName = document.getElementById("customName").value;
-        const jerseyNumber = document.getElementById("jerseyNumber").value;
+        const customName = document.getElementById("customName").value.trim();
+        const jerseyNumber = document.getElementById("jerseyNumber").value.trim();
         const quantity = document.getElementById("quantity").value;
-        const notes = document.getElementById("notes").value;
+        const notes = document.getElementById("notes").value.trim();
         const totalCost = document.getElementById("summaryTotal").textContent;
 
         if (!fullName || !phone || !email || !jerseyType || !team || !jerseyVersion || !size) {
             alert("Please fill in all required fields!");
+            return;
+        }
+
+        // Validate phone number for Nigeria
+        const phonePattern = /^(0[789][01]\d{8})|(\+?234[789][01]\d{8})$/;
+        if (!phonePattern.test(phone)) {
+            alert("Please enter a valid Nigerian phone number (e.g., 08012345678 or +2348012345678)");
             return;
         }
 
@@ -3073,8 +3432,16 @@
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<span class="spinner"></span>PROCESSING...';
 
+        // Get customizer design data
+        let designData = {};
+        try {
+            const saved = localStorage.getItem('dripxi_design');
+            if (saved) designData = JSON.parse(saved);
+        } catch (e) {}
+
         const templateParams = {
-            to_email: "your-email@example.com",
+            to_email: "11.drip.eleven@gmail.com", // YOUR ACTUAL EMAIL HERE
+            reply_to: email,
             customer_name: fullName,
             customer_phone: phone,
             customer_email: email,
@@ -3087,13 +3454,20 @@
             quantity: quantity,
             total_cost: totalCost,
             special_requests: notes || "None",
+            design_color: designData.color || "Not specified",
+            design_font: designData.font || "Not specified"
         };
 
         try {
-            await withTimeout(emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams), SUBMISSION_TIMEOUT_MS);
+            await withTimeout(
+                emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams),
+                SUBMISSION_TIMEOUT_MS
+            );
             successBox.classList.add("show");
             orderForm.style.display = "none";
+            localStorage.removeItem('dripxi_order_form');
             window.scrollTo({ top: 0, behavior: "smooth" });
+            showToast('✅ Order confirmed! Check your email.', 'success');
         } catch (error) {
             console.error("EmailJS error:", error);
             if (error.message === "EmailJS request timed out") {
@@ -3108,7 +3482,36 @@
         }
     });
 
+    // ============================================================
+    // 6. NEWSLETTER FORM
+    // ============================================================
+    document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('newsletterEmail').value.trim();
+        if (email) {
+            showToast('✅ Subscribed to newsletter!', 'success');
+            this.reset();
+        }
+    });
+
+    // ============================================================
+    // 7. INITIAL UPDATE
+    // ============================================================
     updateSummary();
+
+    // Check for order already submitted (persist across refresh)
+    if (localStorage.getItem('dripxi_order_submitted')) {
+        successBox.classList.add('show');
+        orderForm.style.display = 'none';
+        localStorage.removeItem('dripxi_order_submitted');
+    }
+
+    // If order is submitted, store flag
+    const originalSubmit = orderForm.submit;
+    const formSubmitHandler = orderForm._submitHandler;
+    orderForm.addEventListener('submit', function() {
+        // We'll handle this in the main submit listener
+    });
 </script>
 
 </body>
